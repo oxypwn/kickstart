@@ -83,20 +83,20 @@ d-i mirror/http/directory string /pub/os/Linux/distributions/debian
 #d-i mirror/http/proxy string
 
 # Suite to install.
-d-i mirror/suite string stable
+d-i mirror/suite string testing
 # Suite to use for loading installer components (optional).
-d-i mirror/udeb/suite string stable
+d-i mirror/udeb/suite string testing
 
 ### Account setup
 # Skip creation of a root account (normal user account will be able to
 # use sudo).
-d-i passwd/root-login boolean false
+d-i passwd/root-login boolean true
 # Alternatively, to skip creation of a normal user account.
 #d-i passwd/make-user boolean false
 
 # Root password, either in clear text
-#3d-i passwd/root-password password r00tme
-#d-i passwd/root-password-again password r00tme
+3d-i passwd/root-password password 1234
+d-i passwd/root-password-again password 1234
 # or encrypted using an MD5 hash.
 #d-i passwd/root-password-crypted password [MD5 hash]
 
@@ -104,8 +104,8 @@ d-i passwd/root-login boolean false
 d-i passwd/user-fullname string Debian User
 d-i passwd/username string debian
 # Normal user's password, either in clear text
-d-i passwd/user-password password insecure
-d-i passwd/user-password-again password insecure
+d-i passwd/user-password password 1234
+d-i passwd/user-password-again password 1234
 # or encrypted using an MD5 hash.
 #d-i passwd/user-password-crypted password [MD5 hash]
 # Create the first user with the specified UID instead of the default.
@@ -160,7 +160,7 @@ d-i partman-lvm/confirm boolean true
 # - atomic: all files in one partition
 # - home:   separate /home partition
 # - multi:  separate /home, /usr, /var, and /tmp partitions
-d-i partman-auto/choose_recipe select atomic
+d-i partman-auto/choose_recipe select multi
 
 # Or provide a recipe of your own...
 # If you have a way to get a recipe file into the d-i environment, you can
@@ -179,7 +179,7 @@ d-i partman-auto/choose_recipe select atomic
 d-i partman-partitioning/confirm_write_new_label boolean true
 d-i partman/choose_partition select finish
 d-i partman/confirm boolean true
-d-i partman/confirm_nooverwrite boolean true
+d-i partman/confirm_nooverwrite boolean false
 
 
 # This makes partman automatically partition without confirmation.
@@ -193,7 +193,7 @@ d-i partman/confirm_nooverwrite boolean true
 # The default is to mount by UUID, but you can also choose "traditional" to
 # use traditional device names, or "label" to try filesystem labels before
 # falling back to UUIDs.
-#d-i partman/mount_style select uuid
+d-i partman/mount_style select uuid
 
 ### Base system installation
 # Configure APT to not install recommended packages by default. Use of this
@@ -238,7 +238,7 @@ d-i partman/confirm_nooverwrite boolean true
 
 ### Package selection
 #tasksel tasksel/desktop multiselect kde, xfce
-#tasksel tasksel/first multiselect standard
+tasksel tasksel/first multiselect standard
 
 # Individual additional packages to install
 d-i pkgsel/include string openssh-server build-essential
