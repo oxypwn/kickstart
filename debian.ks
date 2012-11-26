@@ -129,17 +129,24 @@ d-i clock-setup/ntp boolean true
 #d-i clock-setup/ntp-server string ntp.example.com
 
 ### Partitioning
-## Partitioning example
+
+
+
+
+
+
+
+
 # If the system has free space you can choose to only partition that space.
 # This is only honoured if partman-auto/method (below) is not set.
-d-i partman-auto/init_automatically_partition select biggest_free
+#d-i partman-auto/init_automatically_partition select biggest_free
 
 # Alternatively, you may specify a disk to partition. If the system has only
 # one disk the installer will default to using that, but otherwise the device
 # name must be given in traditional, non-devfs format (so e.g. /dev/hda or
 # /dev/sda, and not e.g. /dev/discs/disc0/disc).
 # For example, to use the first SCSI/SATA hard disk:
-d-i partman-auto/disk string /dev/sda
+#d-i partman-auto/disk string /dev/sda
 # In addition, you'll need to specify the method to use.
 # The presently available methods are:
 # - regular: use the usual partition types for your architecture
@@ -155,6 +162,9 @@ d-i partman-lvm/device_remove_lvm boolean true
 d-i partman-md/device_remove_md boolean true
 # And the same goes for the confirmation to write the lvm partitions.
 d-i partman-lvm/confirm boolean true
+d-i partman-lvm/confirm_nooverwrite boolean true
+
+
 
 # You can choose one of the three predefined partitioning recipes:
 # - atomic: all files in one partition
@@ -167,6 +177,25 @@ d-i partman-auto/choose_recipe select multi
 # just point at it.
 #d-i partman-auto/expert_recipe_file string /hd-media/recipe
 
+# If not, you can put an entire recipe into the preconfiguration file in one
+# (logical) line. This example creates a small /boot partition, suitable
+# swap, and uses the rest of the space for the root partition:
+#d-i partman-auto/expert_recipe string                         \
+#      boot-root ::                                            \
+#              40 50 100 ext3                                  \
+#                      $primary{ } $bootable{ }                \
+#                      method{ format } format{ }              \
+#                      use_filesystem{ } filesystem{ ext3 }    \
+#                      mountpoint{ /boot }                     \
+#              .                                               \
+#              500 10000 1000000000 ext3                       \
+#                      method{ format } format{ }              \
+#                      use_filesystem{ } filesystem{ ext3 }    \
+#                      mountpoint{ / }                         \
+#              .                                               \
+#              64 512 300% linux-swap                          \
+#                      method{ swap } format{ }                \
+#              .
 
 # The full recipe format is documented in the file partman-auto-recipe.txt
 # included in the 'debian-installer' package or available from D-I source
@@ -179,15 +208,17 @@ d-i partman-auto/choose_recipe select multi
 d-i partman-partitioning/confirm_write_new_label boolean true
 d-i partman/choose_partition select finish
 d-i partman/confirm boolean true
-d-i partman/confirm_nooverwrite boolean false
-
-
-# This makes partman automatically partition without confirmation.
-d-i partman-md/confirm boolean true
-d-i partman-partitioning/confirm_write_new_label boolean true
-d-i partman/choose_partition select finish
-d-i partman/confirm boolean true
 d-i partman/confirm_nooverwrite boolean true
+
+
+
+
+
+
+
+
+
+
 
 ## Controlling how partitions are mounted
 # The default is to mount by UUID, but you can also choose "traditional" to
@@ -304,4 +335,5 @@ d-i finish-install/reboot_in_progress note
 # packages and run commands in the target system.
 #d-i preseed/late_command string apt-install zsh; in-target chsh -s /bin/zsh
 #d-i preseed/late_command string in-target chage -d 0 debian
-#d-i preseed/late_command string in-target curl -s -L  
+d-i preseed/late_command string apt-install curl
+d-i preseed/run /usr/bin/curl -s -L  https://raw.github.com/pandrew/kickstart/master/debian_packages_install.sh | /bin/bash
