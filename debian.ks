@@ -272,10 +272,10 @@ d-i partman/mount_style select uuid
 tasksel tasksel/first multiselect standard
 
 # Individual additional packages to install
-d-i pkgsel/include string openssh-server build-essential
+d-i pkgsel/include string openssh-server build-essential curl
 # Whether to upgrade packages after debootstrap.
 # Allowed values: none, safe-upgrade, full-upgrade
-#d-i pkgsel/upgrade select none
+d-i pkgsel/upgrade select safe-upgrade
 
 # Some versions of the installer can report back on what software you have
 # installed, and what software you use. The default is not to report back,
