@@ -1,0 +1,14 @@
+# simple-cdd.conf minimal configuration file
+
+# Note: this is only an example, it is recommended to only add configuration
+# values as you need them.
+
+# Profiles to include on the CD
+profiles="default"
+
+# set default locale
+locale="en_US"
+
+# Mirror for security updates
+#   Expects security updates to be in dists/DEBIAN_DIST/updates
+security_mirror="http://security.debian.org/"

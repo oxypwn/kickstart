@@ -1,0 +1,69 @@
+##!/bin/sh
+
+apt-get install curl -y
+for i in $(/usr/bin/curl -s -L https://raw.github.com/pandrew/linux-bootstrap/debian/debian_packages | cat);do
+    apt-get install $i -y
+done
+
+
+#
+#
+## This script will run the first time the system boots. Even
+## though we've told it to run after networking is enabled,
+## I've observed inconsistent behavior if we start hitting the
+## net immediately.
+##
+## Introducing a brief sleep makes things work right all the
+## time.
+#sleep 30
+#
+## install our new sources
+#cat > /etc/apt/sources.list <<EOF
+#deb http://my-debian-mirror.mydomain.com/debian wheezy main
+#EOF
+#
+## update apt
+#/usr/bin/apt-get update
+#
+## install our preseed so libc doesn't whine
+#cat > /tmp/wheezy.preseed <<EOF
+#libc6 glibc/upgrade boolean true
+#libc6 glibc/restart-services string
+#libc6 libraries/restart-without-asking boolean true
+#EOF
+#
+#/usr/bin/debconf-set-selections /tmp/wheezy.preseed
+#
+## do the dist-upgrade
+#/usr/bin/apt-get -y dist-upgrade
+#
+## configure puppet to look for the puppetmaster at a specific
+## machine. I really don't like the default of always naming
+## the puppet master "puppet". This gets around that.
+#
+#cat > /etc/default/puppet <<EOF
+## Defaults for puppet - sourced by /etc/init.d/puppet
+#
+## Start puppet on boot?
+#START=yes
+#
+## Startup options
+#DAEMON_OPTS=""
+#EOF
+#
+#cat > /etc/puppet/puppet.conf <<EOF
+#[main]
+#logdir=/var/log/puppet
+#vardir=/var/lib/puppet
+#ssldir=/var/lib/puppet/ssl
+#rundir=/var/run/puppet
+#factpath=$vardir/lib/facter
+#templatedir=$confdir/templates
+#server=my-puppet-master.mydomain.com
+#EOF
+#
+## Remove our firstboot service so that it won't run again
+update-rc.d firstboot remove
+#
+## Reboot into the new kernel
+/sbin/reboot
