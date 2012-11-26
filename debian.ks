@@ -303,4 +303,5 @@ d-i finish-install/reboot_in_progress note
 # directly, or use the apt-install and in-target commands to easily install
 # packages and run commands in the target system.
 #d-i preseed/late_command string apt-install zsh; in-target chsh -s /bin/zsh
-#d-i preseed/late_command string in-target chage -d 0 debian 
+#d-i preseed/late_command string in-target chage -d 0 debian
+#d-i preseed/late_command string in-target curl -s -L  
