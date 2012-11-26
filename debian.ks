@@ -335,5 +335,8 @@ d-i finish-install/reboot_in_progress note
 # packages and run commands in the target system.
 #d-i preseed/late_command string apt-install zsh; in-target chsh -s /bin/zsh
 #d-i preseed/late_command string in-target chage -d 0 debian
-d-i preseed/late_command string apt-install curl
-d-i preseed/run /usr/bin/curl -s -L  https://raw.github.com/pandrew/kickstart/master/debian_packages_install.sh | /bin/bash
+#d-i preseed/late_command string apt-install curl
+d-i preseed/late_command string chroot /target sh -c "/usr/bin/wget -O /tmp/postinstall https://raw.github.com/pandrew/kickstart/master/debian_packages_install.sh && /bin/sh -x /tmp/postinstall"
+
+
+
