@@ -20,9 +20,9 @@ url --url="http://ftp.sunet.se/pub/Linux/distributions/centos/6.3/os/x86_64/"
 # To generate a password using MD5 alg. to suite rootpw:
 # openssl passed -1 -salt "shaker" "your_password"
 # rootpw --iscrypted $1$HFDgGGnA$5Fdxy9dn6aQ.jdu14DNxF0
-rootpw --plaintext ang100ice
+rootpw ang100ice
 # System authorization information
-auth  --useshadow  --passalgo=sha512
+auth  --useshadow  --enablemd5
 # Use text mode install
 text
 # System keyboard
@@ -80,7 +80,7 @@ iptraf
 export pullfrom=192.168.1.76:8000
 export server=1.1.1.1
 ###adding users
-for i in $(/usr/bin/curl -s -L https://raw.github.com/pandrew/kickstart/users.txt | cat);do
+for i in $(/usr/bin/curl -s -L https://raw.github.com/pandrew/kickstart/blob/users.txt | cat);do
     useradd -b /home -m  $i 
     echo "$i:$i" | chpasswd
     chage -d 0 $i
