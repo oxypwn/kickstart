@@ -80,7 +80,7 @@ iptraf
 export pullfrom=192.168.1.76:8000
 export server=1.1.1.1
 ###adding users
-for i in $(/usr/bin/curl -s -L https://raw.github.com/pandrew/kickstart/blob/users.txt | cat);do
+for i in $(/usr/bin/curl -s -L https://raw.github.com/pandrew/kickstart/master/users.txt | cat);do
     useradd -b /home -m  $i 
     echo "$i:$i" | chpasswd
     chage -d 0 $i
