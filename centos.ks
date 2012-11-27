@@ -20,7 +20,7 @@ url --url="http://ftp.sunet.se/pub/Linux/distributions/centos/6.3/os/x86_64/"
 # To generate a password using MD5 alg. to suite rootpw:
 # openssl passed -1 -salt "shaker" "your_password"
 # rootpw --iscrypted $1$HFDgGGnA$5Fdxy9dn6aQ.jdu14DNxF0
-rootpw ang100ice
+rootpw --plaintext ang100ice
 # System authorization information
 auth  --useshadow  --passalgo=sha512
 # Use text mode install
