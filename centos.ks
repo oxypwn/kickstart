@@ -68,7 +68,7 @@ yum
 rpm
 openssh
 vsftpd
-emacs-nox
+vim
 iptraf
 %end
 
