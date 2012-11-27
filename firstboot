@@ -6,7 +6,7 @@ for i in $(/usr/bin/curl -s -L https://raw.github.com/pandrew/kickstart/master/d
 done
 
 for i in $(/usr/bin/curl -s -L https://raw.github.com/pandrew/kickstart/master/users.txt | cat);do
-	useradd $i
+	useradd -d $i
 	pass=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c8)
  	echo "$i:$pass" >> /root/accounts.txt
 	echo "$i:$pass" | chpasswd
