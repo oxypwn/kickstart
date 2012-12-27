@@ -10,7 +10,7 @@
 # Prepend scripts with distribution name to tell reader/user that script is built for distribution.
 # In all mimic behaviour of arch linux install on paper.
 # RESPOSITORY ------------------------------------------------------------
-REMOTE=https://raw.github.com/altercation/archblocks/dev
+REMOTE=https://raw.github.com/pandrew/kickstart/
 
 # CONFIG -----------------------------------------------------------------
 HOSTNAME=tau
@@ -27,14 +27,15 @@ MODULES="dm_mod dm_crypt aes_x86_64 ext2 ext4 vfat intel_agp drm i915"
 HOOKS="base udev autodetect pata scsi sata usb usbinput consolefont encrypt filesystems fsck shutdown"
 
 
-INSTALL_DRIVE=/dev/sda1
 
-# BLOCKS -----------------------------------------------------------------
-TIME=common/time_chrony_utc
-FILESYSTEM=filesystem/gpt_luks_passphrase_ext4
-BOOTLOADER=bootloader/efi_gummiboot
-NETWORK=network/wired_wireless_default
 
-# EXECUTE ----------------------------------------------------------------
-#. <(curl -fsL "${REMOTE}/blocks/_lib/helpers.sh"); _loadblock "_lib/core"
+# Execute in order
+curl -fsL "${REMOTE}/archlinux/pre/01-arch-system-filesystem.sh" | bash
+# Ensure correct mirrors is installed
+# https://www.archlinux.org/mirrorlist/
+curl -fsL "${REMOTE}/archlinux/pre/02-mirrorlist.sh" -o /etc/pacman.d/mirrorlist
 
+
+
+# Refresh packages
+pacman -Sy

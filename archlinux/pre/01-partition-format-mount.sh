@@ -55,8 +55,10 @@ cat > ${MOUNT_PATH}/etc/fstab <<FSTAB_EOF
 #
 # <file system>             <dir>       <type>  <options>                   <dump>  <pass>
 tmpfs                       /tmp        tmpfs   nodev,nosuid                0       0
-#/dev/disk/by-partlabel/${LABEL_BOOT_EFI}       $EFI_SYSTEM_PARTITION   vfat    rw,relatime,discard     0   2
-/dev/disk/by-partlabel/${LABEL_BOOT_EFI}        $EFI_SYSTEM_PARTITION   vfat    rw,relatime,discard,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro    0 2
+#/dev/disk/by-partlabel/${LABEL_BOOT_EFI}       $BOOT_SYSTEM_PARTITION   vfat    rw,relatime,discard     0   2
+/dev/disk/by-partlabel/${LABEL_BOOT_GRUB}        $BOOT_SYSTEM_PARTITION   vfat    rw,relatime,discard,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro    0 2
 /dev/disk/by-partlabel/${LABEL_SWAP}            none        swap    defaults,discard                    0   0
 /dev/disk/by-partlabel/${LABEL_ROOT}            /           ext4    rw,relatime,data=ordered,discard    0   1
 FSTAB_EOF
+
+
