@@ -1,0 +1,3 @@
+[submodule "Gentoo-HAI"]
+	path = Gentoo-HAI
+	url = https://github.com/ASoft-se/Gentoo-HAI.git
