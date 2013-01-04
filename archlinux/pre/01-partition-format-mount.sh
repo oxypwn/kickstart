@@ -29,7 +29,7 @@ sgdisk -n ${PARTITION_ROOT}:0:0 ${INSTALL_DRIVE} # ROOT partition
 # Set partition types
 sgdisk -t ${PARTITION_BIOS_GPT}:ef02 ${INSTALL_DRIVE}
 sgdisk -t ${PARTITION_BOOT}:8300 ${INSTALL_DRIVE}
-sdgisk -t ${PARTITION_SWAP}:8200 ${INSTALL_DRIVE}
+sgdisk -t ${PARTITION_SWAP}:8200 ${INSTALL_DRIVE}
 sgdisk -t ${PARTITION_ROOT}:8300 ${INSTALL_DRIVE}
 
 # Label partitions
