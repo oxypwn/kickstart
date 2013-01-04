@@ -50,8 +50,7 @@ mount ${INSTALL_DRIVE}${PARTITION_ROOT} ${MOUNT_PATH}
 mkdir -p ${MOUNT_PATH}${BOOT_SYSTEM_PARTITION}
 mount -t vfat ${INSTALL_DRIVE}${PARTITION_BOOT} ${MOUNT_PATH}${BOOT_SYSTEM_PARTITION}
 
-[ -d $MOUNT_PATH/etc ] && mkdir -p $MOUNT_PATH/etc
-
+mkdir -p $MOUNT_PATH/etc
 cat > ${MOUNT_PATH}/etc/fstab <<FSTAB_EOF
 # /etc/fstab: static file system information
 #
