@@ -30,7 +30,7 @@ HOOKS="base udev autodetect pata scsi sata usb usbinput consolefont encrypt file
 
 
 # Execute in order
-curl -fsL "${REMOTE}/archlinux/pre/01-arch-system-filesystem.sh" | bash
+curl -fsL "${REMOTE}/archlinux/pre/01-partition-format-mount.sh" | bash
 # Ensure correct mirrors is installed
 # https://www.archlinux.org/mirrorlist/
 curl -fsL "${REMOTE}/archlinux/pre/02-mirrorlist.sh" -o /etc/pacman.d/mirrorlist
