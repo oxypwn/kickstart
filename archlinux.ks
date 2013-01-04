@@ -10,7 +10,7 @@
 # Prepend scripts with distribution name to tell reader/user that script is built for distribution.
 # In all mimic behaviour of arch linux install on paper.
 # RESPOSITORY ------------------------------------------------------------
-REMOTE=https://raw.github.com/pandrew/kickstart/master
+REMOTE=http://goo.gl/Y1DSE
 
 # CONFIG -----------------------------------------------------------------
 HOSTNAME=tau
