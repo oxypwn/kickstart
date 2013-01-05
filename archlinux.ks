@@ -36,9 +36,4 @@ curl -fsL "${REMOTE}/archlinux/pre/01-partition-format-mount.sh" | bash
 curl -fsL "${REMOTE}/archlinux/pre/03-mirrorlist.sh" -o /etc/pacman.d/mirrorlist
 # Intall base
 curl -fsL "${REMOTE}/archlinux/pre/04-install-base.sh" | bash
-# Installing base will update our mirrorlist.
-# We need to install it again to use the mirrors we specified.
-# curl -fsL "${REMOTE}/archlinux/pre/02-mirrorlist.sh" -o /etc/pacman.d/mirrorlist
 
-# Refresh packages
-pacman -Sy
