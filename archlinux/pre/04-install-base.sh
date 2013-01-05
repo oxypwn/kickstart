@@ -4,4 +4,4 @@
 # Update packages
 pacman -Syu
 MOUNT_PATH=/mnt
-pacstrap $MOUNT_PATH base base-devel
+pacstrap ${MOUNT_PATH} base base-devel
