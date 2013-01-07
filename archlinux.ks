@@ -10,8 +10,8 @@
 # Prepend scripts with distribution name to tell reader/user that script is built for distribution.
 # In all mimic behaviour of arch linux install on paper.
 # RESPOSITORY ------------------------------------------------------------
-REMOTE=https://raw.github.com/pandrew/kickstart/master
-
+#REMOTE=http://raw.github.com/pandrew/kickstart/master
+REMOTE=http://192.168.1.76:8080
 # CONFIG -----------------------------------------------------------------
 HOSTNAME=tau
 USERNAME=es
@@ -30,10 +30,13 @@ HOOKS="base udev autodetect pata scsi sata usb usbinput consolefont encrypt file
 
 
 # Execute in order
-curl -fsL "${REMOTE}/archlinux/pre/01-partition-format-mount.sh" | bash
+. <(curl -fsL "${REMOTE}/archlinux/pre/01-partition-format-mount.sh")
 # Ensure correct mirrors is installed
 # https://www.archlinux.org/mirrorlist/
 curl -fsL "${REMOTE}/archlinux/pre/03-mirrorlist.sh" -o /etc/pacman.d/mirrorlist
 # Intall base
-curl -fsL "${REMOTE}/archlinux/pre/04-install-base.sh" | bash
-
+. <(curl -fsL "${REMOTE}/archlinux/pre/04-install-base.sh")
+# Install bootloader
+. <(curl -fsL "${REMOTE}/archlinux/pre/05-bootloader-grub.sh")
+. <(curl -fsL "${REMOTE}/archlinux/pre/05-fstab.sh")
+. <(curl -fsL "${REMOTE}/archlinux/pre/05-chroot.sh")

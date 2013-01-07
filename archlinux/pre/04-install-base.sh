@@ -2,6 +2,6 @@
 # Install base using pacstrap
 
 # Update packages
-pacman -Syu
-MOUNT_PATH=/mnt
-pacstrap ${MOUNT_PATH} base base-devel
+#pacman -Syu -noconfirm
+[ -z $MOUNT_PATH ] && MOUNT_PATH=/mnt
+pacstrap ${MOUNT_PATH} base base-devel && echo y > /root/test.txt
