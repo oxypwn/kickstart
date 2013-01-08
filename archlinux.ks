@@ -7,7 +7,6 @@
 # Minimize amount of code and make it more human readable.
 # Specify what block/scripts/post/pre/anything to load from within this file.
 # Dont chainload via libs as this file define what scripts to execute and not to execute.
-# Prepend scripts with distribution name to tell reader/user that script is built for distribution.
 # In all mimic behaviour of arch linux install on paper.
 # RESPOSITORY ------------------------------------------------------------
 #REMOTE=http://raw.github.com/pandrew/kickstart/master
@@ -27,16 +26,13 @@ MODULES="dm_mod dm_crypt aes_x86_64 ext2 ext4 vfat intel_agp drm i915"
 HOOKS="base udev autodetect pata scsi sata usb usbinput consolefont encrypt filesystems fsck shutdown"
 
 
+MNT=/mnt; TMP=/tmp; POSTSCRIPT="postinstall.sh"
 
-
-# Execute in order
-. <(curl -fsL "${REMOTE}/archlinux/pre/01-partition-format-mount.sh")
-# Ensure correct mirrors is installed
-# https://www.archlinux.org/mirrorlist/
-curl -fsL "${REMOTE}/archlinux/pre/03-mirrorlist.sh" -o /etc/pacman.d/mirrorlist
-# Intall base
-. <(curl -fsL "${REMOTE}/archlinux/pre/04-install-base.sh")
-# Install bootloader
-. <(curl -fsL "${REMOTE}/archlinux/pre/05-bootloader-grub.sh")
-. <(curl -fsL "${REMOTE}/archlinux/pre/05-fstab.sh")
-. <(curl -fsL "${REMOTE}/archlinux/pre/05-chroot.sh")
+. <(curl -fsL "${REMOTE}/archlinux/pre/partition-format-mount.sh")
+curl -fsL "${REMOTE}/archlinux/pre/mirrorlist.txt" -o /etc/pacman.d/mirrorlist
+. <(curl -fsL "${REMOTE}/archlinux/pre/install-base.sh")
+. <(curl -fsL "${REMOTE}/archlinux/pre/bootloader-grub.sh")
+. <(curl -fsL "${REMOTE}/archlinux/pre/fstab.sh")
+. <(curl -fsL "${REMOTE}/archlinux/post/blacklist.sh")
+. <(curl -fsL "${REMOTE}/archlinux/pre/chroot.sh")
+. <(curl -fsL "${REMOTE}/archlinux/pre/pacman-packages.sh")
