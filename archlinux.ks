@@ -26,8 +26,9 @@ MODULES="dm_mod dm_crypt aes_x86_64 ext2 ext4 vfat intel_agp drm i915"
 HOOKS="base udev autodetect pata scsi sata usb usbinput consolefont encrypt filesystems fsck shutdown"
 
 
-MNT=/mnt; TMP=/tmp; POSTSCRIPT="postinstall.sh"
-
+MNT=/mnt; TMP=/tmp; POSTSCRIPT=postinstall.sh
+[ -e "${MNT}/${POSTSCRIPT}" ] && INCHROOT=true || INCHROOT=false
+if ! $INCHROOT; then
 . <(curl -fsL "${REMOTE}/archlinux/pre/partition-format-mount.sh")
 curl -fsL "${REMOTE}/archlinux/pre/mirrorlist.txt" -o /etc/pacman.d/mirrorlist
 . <(curl -fsL "${REMOTE}/archlinux/pre/install-base.sh")
@@ -35,4 +36,8 @@ curl -fsL "${REMOTE}/archlinux/pre/mirrorlist.txt" -o /etc/pacman.d/mirrorlist
 . <(curl -fsL "${REMOTE}/archlinux/pre/fstab.sh")
 . <(curl -fsL "${REMOTE}/archlinux/post/blacklist.sh")
 . <(curl -fsL "${REMOTE}/archlinux/pre/chroot.sh")
-. <(curl -fsL "${REMOTE}/archlinux/pre/pacman-packages.sh")
+fi
+
+if $INCHROOT; then
+pacman -S --noconfirm $PACKAGES
+fi

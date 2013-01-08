@@ -25,5 +25,5 @@ mkinitcpio -p linux
 
 chage -d 0 root
 
-pacman -S --noconfirm $PACKAGES
+
 
