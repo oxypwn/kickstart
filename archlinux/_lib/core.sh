@@ -13,7 +13,7 @@
 [ ! -f "${0}" ] && echo "Don't run this directly from curl. Save to file first." && exit
 
 # set mount point, temp directory, script values
-MNT=/mnt; TMP=/tmp/archblocks; POSTSCRIPT="/post-chroot.sh"
+MNT=/mnt; TMP=/tmp/archblocks; POSTSCRIPT="/postinstall.sh"
 
 # get chroot status
 [ -e "${POSTSCRIPT}" ] && INCHROOT=true || INCHROOT=false
@@ -34,10 +34,10 @@ _defaultvalue LANGUAGE en_US.UTF-8
 _defaultvalue KEYMAP us
 _defaultvalue TIMEZONE US/Pacific
 _defaultvalue MODULES ""
-_defaultvalue HOOKS "base udev autodetect pata scsi sata filesystems usbinput fsck"
+_defaultvalue HOOKS "base udev autodetect block filesystems usbinput fsck"
 _defaultvalue KERNEL_PARAMS # "quiet" # set/used in FILESYSTEM,INIT,BOOTLOADER blocks
 _defaultvalue AURHELPER packer
-_defaultvalue INSTALL_DRIVE query # this overrides any default value set in FILESYSTEM block
+_defaultvalue INSTALL_DRIVE /dev/sda # this overrides any default value set in FILESYSTEM block
 _defaultvalue INIT_MODE systemd # systemd vs anything else. Blocks/helpers can check this to confirm systemd use
 
 #TODO: REMOVE THIS #_defaultvalue PRIMARY_BOOTLOADER UEFI # UEFI or BIOS (case insensitive)
@@ -48,15 +48,17 @@ _defaultvalue INIT_MODE systemd # systemd vs anything else. Blocks/helpers can c
 
 # BLOCKS DEFAULTS --------------------------------------------------------
 
-_defaultvalue INSTALL common/install_pacstrap
+_defaultvalue INSTALL pre/install-base
 _defaultvalue HARDWARE ""
 _defaultvalue TIME common/time_ntp_utc # or, e.g. time_ntp_localtime
 _defaultvalue SETLOCALE common/locale_default
 _defaultvalue HOST common/host_default
-_defaultvalue FILESYSTEM filesystem/mbr_ext4
-_defaultvalue RAMDISK common/ramdisk_default
-_defaultvalue BOOTLOADER bootloader/bios_grub
+_defaultvalue FILESYSTEM pre/partition-format-mount
+_defaultvalue RAMDISK post/ramdisk_default
+_defaultvalue BOOTLOADER pre/bootloader-grub
 _defaultvalue NETWORK network/wired_wireless_default
+_defaultvalue BLACKLIST post/blacklist
+_defaultvalue FSTAB pre/fstab
 #_defaultvalue INIT init/systemd_pure
 #_defaultvalue INIT=init/systemd_coexist
 #_defaultvalue INIT=init/sysvinit_default
@@ -67,52 +69,54 @@ _defaultvalue SOUND ""
 _defaultvalue POWER ""
 _defaultvalue SENSORS ""
 _defaultvalue DESKTOP ""
-_defaultvalue POSTFLIGHT "common/postflight_rootpass common/postflight_sudouser"
+_defaultvalue POSTFLIGHT "post/setup_user post/setup_root"
 _defaultvalue APPSETS ""
 _defaultvalue PACKAGES "git"
 _defaultvalue AURPACKAGES "git"
 
 # ARCH PREP & SYSTEM INSTALL (PRE CHROOT) --------------------------------
 if ! $INCHROOT; then
-_initialwarning                 # WARN USER OF IMPENDING DOOM
-_setfont                        # SET FONT FOR PLEASANT INSTALL EXPERIENCE
+#_initialwarning                 # WARN USER OF IMPENDING DOOM
+#_setfont                        # SET FONT FOR PLEASANT INSTALL EXPERIENCE
 _load_efi_modules || true       # ATTEMPT TO LOAD EFIVARS, EVEN IF NOT USING EFI (REQUIRED)
 _loadblock "${FILESYSTEM}"      # LOAD FILESYSTEM (FUNCTIONS AND VARIABLE DECLARATION ONLY)
-_filesystem_pre_baseinstall     # FILESYSTEM CREATION AND CONFIG
+_filesystem_pre_baseinstall     # FILESYSTEM PARTITION FORMAT MOUNT
+_loadblock "${FSTAB}"     # LOAD FSTAB
+_install_mirrorlist		# INSTALL MIRRORLIST TO LIVE AND CHROOT ENVIRONMENT
 _loadblock "${INSTALL}"         # INSTALL ARCH
 _filesystem_post_baseinstall    # WRITE FSTAB/CRYPTTAB AND ANY OTHER POST INTALL FILESYSTEM CONFIG
-_filesystem_pre_chroot          # PROBABLY UNMOUNT OF BOOT IF INSTALLING UEFI MODE
+#_filesystem_pre_chroot          # PROBABLY UNMOUNT OF BOOT IF INSTALLING UEFI MODE
 _chroot_postscript              # CHROOT AND CONTINUE EXECUTION
 fi
 
 # ARCH CONFIG (POST CHROOT) ----------------------------------------------
 if $INCHROOT; then
 umount /tmp || _anykey "didn't unmount tmp..."
-_loadblock "${FILESYSTEM}"      # LOAD FILESYSTEM FUNCTIONS
-pacman -Sy
+#pacman -Sy
 _filesystem_post_chroot         # FILESYSTEM POST-CHROOT CONFIGURATION
-_systemd && _loadblock "common/systemd_default" # PURE SYSTEMD INSTALL
-_loadblock "${SETLOCALE}"       # SET LOCALE
-_loadblock "${TIME}"            # TIME
-_loadblock "${HOST}"            # HOSTNAME
+#_systemd && _loadblock "common/systemd_default" # PURE SYSTEMD INSTALL
+#_loadblock "${SETLOCALE}"       # SET LOCALE
+#_loadblock "${TIME}"            # TIME
+#_loadblock "${HOST}"            # HOSTNAME
                                 # DAEMONS
                                 # INIT/SYSTEMD
-_loadblock "${NETWORK}"         # NETWORKING
-_loadblock "${AUDIO}"           # AUDIO
-_loadblock "${VIDEO}"           # VIDEO
-_loadblock "${SOUND}"           # SOUND
-_loadblock "${POWER}"           # POWER
-_loadblock "${SENSORS}"         # SENSORS
+#_loadblock "${NETWORK}"         # NETWORKING
+#_loadblock "${AUDIO}"           # AUDIO
+#_loadblock "${VIDEO}"           # VIDEO
+#_loadblock "${SOUND}"           # SOUND
+#_loadblock "${POWER}"           # POWER
+#_loadblock "${SENSORS}"         # SENSORS
 #_loadblock "${KERNEL}"         # KERNEL
 _loadblock "${RAMDISK}"         # RAMDISK
+_loadblock "${BLACKLIST}"	# BLACKLIST
 _loadblock "${BOOTLOADER}"      # BOOTLOADER
 _loadblock "${POSTFLIGHT}"      # COMMON POST INSTALL ROUTINES
-_loadblock "${XORG}"            # XORG
-_loadblock "${DESKTOP}"         # DESKTOP/WM/ETC
-_loadblock "${HARDWARE}"        # COMMON POST INSTALL ROUTINES
-_loadblock "${APPSETS}"         # COMMON APPLICATION/UTILITY SETS
+#_loadblock "${XORG}"            # XORG
+#_loadblock "${DESKTOP}"         # DESKTOP/WM/ETC
+#_loadblock "${HARDWARE}"        # COMMON POST INSTALL ROUTINES
+#_loadblock "${APPSETS}"         # COMMON APPLICATION/UTILITY SETS
 _installpkg ${PACKAGES}
-_installaur ${AURPACKAGES}
-_loadblock "${MR_BOOTSTRAP+common/mr_bootstrap}" # only if MR_BOOTSTRAP set
+#_installaur ${AURPACKAGES}
+#_loadblock "${MR_BOOTSTRAP+common/mr_bootstrap}" # only if MR_BOOTSTRAP set
 fi
 

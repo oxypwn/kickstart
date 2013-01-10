@@ -23,21 +23,14 @@ TIMEZONE=US/Pacific
 MODULES="dm_mod dm_crypt aes_x86_64 ext2 ext4 vfat intel_agp drm i915"
 #HOOKS="base udev autodetect pata scsi sata usb usbinput consolefont encrypt filesystems fsck shutdown"
 # possible fix for occasional blank screen on resume? https://wiki.archlinux.org/index.php/Pm-utils#Blank_screen_issue
-HOOKS="base udev autodetect pata scsi sata usb usbinput consolefont encrypt filesystems fsck shutdown"
 
 
-MNT=/mnt; TMP=/tmp; POSTSCRIPT=postinstall.sh
-[ -e "${MNT}/${POSTSCRIPT}" ] && INCHROOT=true || INCHROOT=false
-if ! $INCHROOT; then
-. <(curl -fsL "${REMOTE}/archlinux/pre/partition-format-mount.sh")
-curl -fsL "${REMOTE}/archlinux/pre/mirrorlist.txt" -o /etc/pacman.d/mirrorlist
-. <(curl -fsL "${REMOTE}/archlinux/pre/install-base.sh")
-. <(curl -fsL "${REMOTE}/archlinux/pre/bootloader-grub.sh")
-. <(curl -fsL "${REMOTE}/archlinux/pre/fstab.sh")
-. <(curl -fsL "${REMOTE}/archlinux/post/blacklist.sh")
-. <(curl -fsL "${REMOTE}/archlinux/pre/chroot.sh")
-fi
 
-if $INCHROOT; then
-pacman -S --noconfirm $PACKAGES
-fi
+# EXTRA PACKAGES ---------------------------------------------------------
+# if you don't want to create a new block, you can specify extra packages
+# from official repos or AUR here (simple space separated list of packages)
+PACKAGES="git rxvt-unicode xterm"
+AURPACKAGES="termite-git"
+
+# EXECUTE ----------------------------------------------------------------
+. <(curl -fsL "${REMOTE}/archlinux/_lib/helpers.sh"); _loadblock "_lib/core"

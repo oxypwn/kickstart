@@ -263,6 +263,11 @@ MATCH="$(echo "$1" | sed "s_/_\\\/_g")"
 blkid -c /dev/null | sed -n "/${MATCH}/ s_.*UUID=\"\([^\"]*\).*_\1_p"
 }
 
+_install_mirrorlist ()
+{
+curl -fsL "${REMOTE}/archlinux/pre/mirrorlist.txt" -o /etc/pacman.d/mirrorlist
+}
+
 # ENABLE REPOSITORIES FOR SPECIFIC LANGUAGES/FRAMEWORKS ------------------
 _enable_haskell_repos ()
 {

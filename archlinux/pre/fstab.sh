@@ -9,6 +9,8 @@ LABEL_SWAP=swap
 LABEL_ROOT=root
 BOOT_SYSTEM_PARTITION=/boot/grub
 
+_filesystem_post_baseinstall ()
+{
 cat > ${MOUNT_PATH}/etc/fstab <<FSTAB_EOF
 # /etc/fstab: static file system information
 #
@@ -19,3 +21,4 @@ tmpfs                       /tmp        tmpfs   nodev,nosuid                0   
 /dev/disk/by-partlabel/${LABEL_SWAP}            none        swap    defaults,discard                    0   0
 /dev/disk/by-partlabel/${LABEL_ROOT}            /           ext4    rw,relatime,data=ordered,discard    0   1
 FSTAB_EOF
+}

@@ -16,6 +16,7 @@ LABEL_ROOT=root
 MOUNT_PATH=/mnt
 BOOT_SYSTEM_PARTITION=/boot/grub
 
+_filesystem_pre_baseinstall () {
 # Prepare system disk
 sgdisk -Z ${INSTALL_DRIVE} # DELETE install drive
 sgdisk -a 2048 -o ${INSTALL_DRIVE} # CREATING 2048 alignment
@@ -49,4 +50,4 @@ mkdir -p ${MOUNT_PATH}
 mount ${INSTALL_DRIVE}${PARTITION_ROOT} ${MOUNT_PATH}
 mkdir -p ${MOUNT_PATH}${BOOT_SYSTEM_PARTITION}
 mount -t vfat ${INSTALL_DRIVE}${PARTITION_BOOT_GRUB} ${MOUNT_PATH}${BOOT_SYSTEM_PARTITION}
-read -p
+}
