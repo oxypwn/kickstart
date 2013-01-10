@@ -71,7 +71,7 @@ _defaultvalue SENSORS ""
 _defaultvalue DESKTOP ""
 _defaultvalue POSTFLIGHT "post/setup_user post/setup_root"
 _defaultvalue APPSETS ""
-_defaultvalue PACKAGES "git"
+_defaultvalue PACKAGES "git dosfstools"
 _defaultvalue AURPACKAGES "git"
 
 # ARCH PREP & SYSTEM INSTALL (PRE CHROOT) --------------------------------

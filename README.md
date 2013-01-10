@@ -17,6 +17,7 @@ First file is the kickstart template where you configure the system via variable
 ## Debian
 
 ## Gentoo
+Take a look at ./Gentoo-HAI/. I have not tested this yet.
 
 ## Helpers
     ./customhttpserver

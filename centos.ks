@@ -42,8 +42,17 @@ services --enabled="sshd,vsftpd"
 # System timezone
 timezone  Europe/Stockholm
 # Network information
-network  --bootproto=dhcp --device=eth0 --onboot=on --hostname client
-network  --bootproto=static --device=eth1 --ip=1.1.1.2 --onboot=on --netmask=255.255.255.0
+# DHCP
+network  --bootproto=dhcp --device=eth0 --onboot=on --hostname mail
+# Internal
+# 10.0.0.0-10.255.255.255
+# 172.16.0.0-172.16.255.255
+# 192.168.0.0-192.168.255.255
+network  --bootproto=static --device=eth1 --ip=10.10.10.4 --onboot=on --netmask=255.255.255.0
+# External
+network --bootproto=static --device=eth2 --ip=172.16.0.2 --onboot=on --netmask=255.255.255.0
+
+
 
 # System bootloader configuration
 bootloader --location=mbr
