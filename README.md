@@ -3,7 +3,7 @@ Kickstart
 
 Kickstart files and helpers for dev and stable environments.
 
-# Archlinux
+## Archlinux
 The kick for archlinux is based mostly upon github.com/altercation:s archblocks. The key difference is unattended installation, gpt with grub support. I will add EFI when i have hardware that supports it.
 
     archlinux.ks
@@ -12,13 +12,13 @@ The kick for archlinux is based mostly upon github.com/altercation:s archblocks.
 First file is the kickstart template where you configure the system via variables. The directory includes helper files and configuration.
 
 
-# Centos
+## Centos
 
-# Debian
+## Debian
 
-# Gentoo
+## Gentoo
 
-# Helpers
+## Helpers
     ./customhttpserver
 Is a simple http server in python where you can define the port yourself. Running customhttpserver within this directory will allow you to install multiple systems at once. Due to the small size of files being served using the script latency is not an issue as with larger files.
 
