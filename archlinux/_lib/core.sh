@@ -34,7 +34,7 @@ _defaultvalue LANGUAGE en_US.UTF-8
 _defaultvalue KEYMAP us
 _defaultvalue TIMEZONE US/Pacific
 _defaultvalue MODULES ""
-_defaultvalue HOOKS "base udev autodetect block filesystems usbinput fsck consolefont keymap"
+_defaultvalue HOOKS "base udev autodetect block filesystems usbinput fsck keymap"
 _defaultvalue KERNEL_PARAMS # "quiet" # set/used in FILESYSTEM,INIT,BOOTLOADER blocks
 _defaultvalue AURHELPER packer
 _defaultvalue INSTALL_DRIVE /dev/sda # this overrides any default value set in FILESYSTEM block
@@ -116,7 +116,7 @@ _loadblock "${POSTFLIGHT}"      # COMMON POST INSTALL ROUTINES
 #_loadblock "${HARDWARE}"        # COMMON POST INSTALL ROUTINES
 #_loadblock "${APPSETS}"         # COMMON APPLICATION/UTILITY SETS
 _installpkg ${PACKAGES}
-#_installaur ${AURPACKAGES}
+_installaur ${AURPACKAGES}
 #_loadblock "${MR_BOOTSTRAP+common/mr_bootstrap}" # only if MR_BOOTSTRAP set
 fi
 
