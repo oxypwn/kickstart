@@ -28,13 +28,13 @@ _defaultvalue REMOTE https://raw.github.com/altercation/archblocks/master
 
 _defaultvalue HOSTNAME archlinux
 _defaultvalue USERSHELL /bin/bash
-_defaultvalue FONT Lat2-Terminus16
-_defaultvalue FONT_MAP 8859-1_to_uni
+_defaultvalue FONT ter-116n
+_defaultvalue FONT_MAP 8859-1
 _defaultvalue LANGUAGE en_US.UTF-8
 _defaultvalue KEYMAP us
 _defaultvalue TIMEZONE US/Pacific
 _defaultvalue MODULES ""
-_defaultvalue HOOKS "base udev autodetect block filesystems usbinput fsck"
+_defaultvalue HOOKS "base udev autodetect block filesystems usbinput fsck consolefont keymap"
 _defaultvalue KERNEL_PARAMS # "quiet" # set/used in FILESYSTEM,INIT,BOOTLOADER blocks
 _defaultvalue AURHELPER packer
 _defaultvalue INSTALL_DRIVE /dev/sda # this overrides any default value set in FILESYSTEM block
@@ -50,13 +50,13 @@ _defaultvalue INIT_MODE systemd # systemd vs anything else. Blocks/helpers can c
 
 _defaultvalue INSTALL pre/install-base
 _defaultvalue HARDWARE ""
-_defaultvalue TIME common/time_ntp_utc # or, e.g. time_ntp_localtime
-_defaultvalue SETLOCALE common/locale_default
-_defaultvalue HOST common/host_default
+_defaultvalue TIME post/time_ntp_utc # or, e.g. time_ntp_localtime
+_defaultvalue SETLOCALE post/locale_default
+_defaultvalue HOST post/host_default
 _defaultvalue FILESYSTEM pre/partition-format-mount
 _defaultvalue RAMDISK post/ramdisk_default
 _defaultvalue BOOTLOADER pre/bootloader-grub
-_defaultvalue NETWORK network/wired_wireless_default
+_defaultvalue NETWORK post/network-wired-dhcp
 _defaultvalue BLACKLIST post/blacklist
 _defaultvalue FSTAB pre/fstab
 #_defaultvalue INIT init/systemd_pure
@@ -94,13 +94,13 @@ if $INCHROOT; then
 umount /tmp || _anykey "didn't unmount tmp..."
 #pacman -Sy
 _filesystem_post_chroot         # FILESYSTEM POST-CHROOT CONFIGURATION
-#_systemd && _loadblock "common/systemd_default" # PURE SYSTEMD INSTALL
-#_loadblock "${SETLOCALE}"       # SET LOCALE
-#_loadblock "${TIME}"            # TIME
-#_loadblock "${HOST}"            # HOSTNAME
+#_systemd && _loadblock "post/systemd_default" # PURE SYSTEMD INSTALL
+_loadblock "${SETLOCALE}"       # SET LOCALE
+_loadblock "${TIME}"            # TIME
+_loadblock "${HOST}"            # HOSTNAME
                                 # DAEMONS
                                 # INIT/SYSTEMD
-#_loadblock "${NETWORK}"         # NETWORKING
+_loadblock "${NETWORK}"         # NETWORKING
 #_loadblock "${AUDIO}"           # AUDIO
 #_loadblock "${VIDEO}"           # VIDEO
 #_loadblock "${SOUND}"           # SOUND

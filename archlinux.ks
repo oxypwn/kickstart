@@ -3,11 +3,8 @@
 # This code is in development and the ideas for this is taken from archblocks,
 # ec2-debian-installer and kickstart/preseed.
 # TODO
-# Define static variables here. Will cleanup interaction with user.
+# implement logging function
 # Minimize amount of code and make it more human readable.
-# Specify what block/scripts/post/pre/anything to load from within this file.
-# Dont chainload via libs as this file define what scripts to execute and not to execute.
-# In all mimic behaviour of arch linux install on paper.
 # RESPOSITORY ------------------------------------------------------------
 #REMOTE=http://raw.github.com/pandrew/kickstart/master
 REMOTE=http://192.168.1.76:8080
@@ -15,11 +12,11 @@ REMOTE=http://192.168.1.76:8080
 HOSTNAME=tau
 USERNAME=es
 USERSHELL=/bin/bash
-FONT=Lat2-Terminus16
-FONT_MAP=8859-1_to_uni
+FONT=ter-116n
+FONT_MAP=8859-1
 LANGUAGE=en_US.UTF-8
-KEYMAP=us
-TIMEZONE=US/Pacific
+KEYMAP=svoraka5
+TIMEZONE=Europe/Stockholm
 MODULES="dm_mod dm_crypt aes_x86_64 ext2 ext4 vfat intel_agp drm i915"
 #HOOKS="base udev autodetect pata scsi sata usb usbinput consolefont encrypt filesystems fsck shutdown"
 # possible fix for occasional blank screen on resume? https://wiki.archlinux.org/index.php/Pm-utils#Blank_screen_issue
@@ -29,7 +26,7 @@ MODULES="dm_mod dm_crypt aes_x86_64 ext2 ext4 vfat intel_agp drm i915"
 # EXTRA PACKAGES ---------------------------------------------------------
 # if you don't want to create a new block, you can specify extra packages
 # from official repos or AUR here (simple space separated list of packages)
-PACKAGES="git rxvt-unicode xterm dosfstools vim"
+PACKAGES="git rxvt-unicode xterm dosfstools vim xorg-xinit xorg dwm terminus-font"
 AURPACKAGES="termite-git"
 
 # EXECUTE ----------------------------------------------------------------

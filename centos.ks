@@ -79,6 +79,7 @@ openssh
 vsftpd
 vim
 iptraf
+nmap
 %end
 
 %pre
