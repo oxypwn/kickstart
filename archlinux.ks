@@ -26,7 +26,7 @@ MODULES="dm_mod dm_crypt aes_x86_64 ext2 ext4 vfat intel_agp drm i915"
 # EXTRA PACKAGES ---------------------------------------------------------
 # if you don't want to create a new block, you can specify extra packages
 # from official repos or AUR here (simple space separated list of packages)
-PACKAGES="git mplayer simple-scan rxvt-unicode xterm dosfstools vim xorg-xinit xorg dwm terminus-font"
+PACKAGES="dosfstools git mplayer simple-scan rxvt-unicode xterm vim xorg-xinit xorg dwm terminus-font"
 AURPACKAGES="mr"
 
 # EXECUTE ----------------------------------------------------------------
