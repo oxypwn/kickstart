@@ -9,8 +9,8 @@
 #REMOTE=http://raw.github.com/pandrew/kickstart/master
 REMOTE=http://192.168.1.76:8080
 # CONFIG -----------------------------------------------------------------
-HOSTNAME=tau
-USERNAME=es
+HOSTNAME=brian
+USERNAME=paul
 USERSHELL=/bin/bash
 FONT=ter-116n
 FONT_MAP=8859-1

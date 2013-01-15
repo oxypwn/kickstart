@@ -56,7 +56,7 @@ _defaultvalue HOST post/host_default
 _defaultvalue FILESYSTEM pre/partition-format-mount
 _defaultvalue RAMDISK post/ramdisk_default
 _defaultvalue BOOTLOADER pre/bootloader-grub
-_defaultvalue NETWORK post/network-wired-dhcp
+_defaultvalue NETWORK post/wired_wireless_default
 _defaultvalue BLACKLIST post/blacklist
 _defaultvalue FSTAB pre/fstab
 #_defaultvalue INIT init/systemd_pure
