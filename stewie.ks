@@ -11,8 +11,8 @@
 #REMOTE=http://raw.github.com/pandrew/kickstart/master
 REMOTE=http://192.168.1.76:8080
 # CONFIG -----------------------------------------------------------------
-HOSTNAME=brian
-USERNAME=paul
+HOSTNAME=stewie
+USERNAME=pandrew
 USERSHELL=/bin/bash
 FONT=ter-116n
 FONT_MAP=8859-1
@@ -28,8 +28,8 @@ MODULES="dm_mod dm_crypt aes_x86_64 ext2 ext4 vfat intel_agp drm i915"
 # EXTRA PACKAGES ---------------------------------------------------------
 # if you don't want to create a new block, you can specify extra packages
 # from official repos or AUR here (simple space separated list of packages)
-PACKAGES="dosfstools git mplayer wireshark-cli transmission-cli wireshark-cli xpdf openssh handbrake-cli nmap simple-scan rxvt-unicode xterm vim xorg-xinit xorg dwm terminus-font"
-AURPACKAGES="mr"
+PACKAGES="dosfstools zsh git mplayer transmission-cli wireshark-cli xpdf openssh handbrake-cli nmap simple-scan rxvt-unicode xterm vim xorg-xinit xorg dwm terminus-font"
+AURPACKAGES="mr git-annex-bin dropbox"
 
 # EXECUTE ----------------------------------------------------------------
 . <(curl -fsL "${REMOTE}/archlinux/_lib/helpers.sh"); _loadblock "_lib/core"

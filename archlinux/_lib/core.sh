@@ -63,7 +63,7 @@ _defaultvalue FSTAB pre/fstab
 #_defaultvalue INIT=init/systemd_coexist
 #_defaultvalue INIT=init/sysvinit_default
 _defaultvalue XORG ""
-_defaultvalue AUDIO ""
+_defaultvalue AUDIO "post/audio_alas.sh"
 _defaultvalue VIDEO ""
 _defaultvalue SOUND ""
 _defaultvalue POWER ""
@@ -101,7 +101,7 @@ _loadblock "${HOST}"            # HOSTNAME
                                 # DAEMONS
                                 # INIT/SYSTEMD
 _loadblock "${NETWORK}"         # NETWORKING
-#_loadblock "${AUDIO}"           # AUDIO
+_loadblock "${AUDIO}"           # AUDIO
 #_loadblock "${VIDEO}"           # VIDEO
 #_loadblock "${SOUND}"           # SOUND
 #_loadblock "${POWER}"           # POWER
