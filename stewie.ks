@@ -34,3 +34,4 @@ AURPACKAGES="mr git-annex-bin dropbox"
 
 # EXECUTE ----------------------------------------------------------------
 . <(curl -fsL "${REMOTE}/archlinux/_lib/helpers.sh"); _loadblock "_lib/core"
+

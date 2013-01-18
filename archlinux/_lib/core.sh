@@ -52,6 +52,7 @@ _defaultvalue INSTALL pre/install-base
 _defaultvalue HARDWARE ""
 _defaultvalue TIME post/time_ntp_utc # or, e.g. time_ntp_localtime
 _defaultvalue SETLOCALE post/locale_default
+_defaultvalue SUDO post/sudo_default
 _defaultvalue HOST post/host_default
 _defaultvalue FILESYSTEM pre/partition-format-mount
 _defaultvalue RAMDISK post/ramdisk_default
@@ -66,10 +67,10 @@ _defaultvalue XORG ""
 _defaultvalue AUDIO ""
 _defaultvalue VIDEO ""
 _defaultvalue SOUND ""
-_defaultvalue POWER ""
-_defaultvalue SENSORS ""
+_defaultvalue POWER post/power_acpi
+_defaultvalue SENSORS post/sensors_default
 _defaultvalue DESKTOP ""
-_defaultvalue POSTFLIGHT "post/setup_user post/setup_root"
+_defaultvalue USERS "post/setup_user post/setup_root"
 _defaultvalue APPSETS ""
 _defaultvalue PACKAGES "git"
 _defaultvalue AURPACKAGES ""
@@ -104,13 +105,14 @@ _loadblock "${NETWORK}"         # NETWORKING
 _loadblock "${AUDIO}"           # AUDIO
 #_loadblock "${VIDEO}"           # VIDEO
 #_loadblock "${SOUND}"           # SOUND
-#_loadblock "${POWER}"           # POWER
+_loadblock "${POWER}"           # POWER
 #_loadblock "${SENSORS}"         # SENSORS
 #_loadblock "${KERNEL}"         # KERNEL
 _loadblock "${RAMDISK}"         # RAMDISK
 _loadblock "${BLACKLIST}"	# BLACKLIST
 _loadblock "${BOOTLOADER}"      # BOOTLOADER
-_loadblock "${POSTFLIGHT}"      # COMMON POST INSTALL ROUTINES
+_loadblock "${SUDO}"
+_loadblock "${USERS}"      # COMMON POST INSTALL ROUTINES
 _loadblock "${XORG}"            # XORG
 #_loadblock "${DESKTOP}"         # DESKTOP/WM/ETC
 #_loadblock "${HARDWARE}"        # COMMON POST INSTALL ROUTINES

@@ -216,6 +216,26 @@ _add_postinstall_messags ()
 }
 
 # LOAD BLOCK -------------------------------------------------------------
+_fixblock ()
+{
+_anykey "EXECUTION OF BLOCK \"$_block\" EXPERIENCED ERRORS"
+read _block
+isurl=false ispath=false isrootpath=false;
+case "$_block" in
+    *://*) isurl=true ;;
+    /*)    isrootpath=true ;;
+    */*)   ispath=true ;;
+esac
+FILE="${_block/%.sh/}.sh";
+if $isurl; then URL="${FILE}";
+elif [ -f "${DIR/%\//}/${FILE}" ]; then URL="file://${FILE}";
+else URL="${REMOTE/%\//}/archlinux/${FILE}"; fi
+
+_loaded_block="$(curl -fsL ${URL})";
+
+[ -n "$_loaded_block" ] && eval "${_loaded_block}";
+}
+
 _loadblock ()
 {
 [ -z "$@" ] && return
@@ -235,10 +255,9 @@ _loaded_block="$(curl -fsL ${URL})";
 
 #set +e
 [ -n "$_loaded_block" ] && eval "${_loaded_block}";
-if [ "$?" -gt 0 ]; then
-_anykey "EXECUTION OF BLOCK \"$_block\" EXPERIENCED ERRORS"
-_loaded_block="$(curl -fsL ${URL})";
-fi
+    while [ "$?" -gt 0 ]; do
+        _fixblock
+    done
 #set -e
 done
 } 
