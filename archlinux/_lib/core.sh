@@ -63,7 +63,7 @@ _defaultvalue FSTAB pre/fstab
 #_defaultvalue INIT=init/systemd_coexist
 #_defaultvalue INIT=init/sysvinit_default
 _defaultvalue XORG ""
-_defaultvalue AUDIO "post/audio_alas.sh"
+_defaultvalue AUDIO ""
 _defaultvalue VIDEO ""
 _defaultvalue SOUND ""
 _defaultvalue POWER ""
@@ -111,7 +111,7 @@ _loadblock "${RAMDISK}"         # RAMDISK
 _loadblock "${BLACKLIST}"	# BLACKLIST
 _loadblock "${BOOTLOADER}"      # BOOTLOADER
 _loadblock "${POSTFLIGHT}"      # COMMON POST INSTALL ROUTINES
-#_loadblock "${XORG}"            # XORG
+_loadblock "${XORG}"            # XORG
 #_loadblock "${DESKTOP}"         # DESKTOP/WM/ETC
 #_loadblock "${HARDWARE}"        # COMMON POST INSTALL ROUTINES
 #_loadblock "${APPSETS}"         # COMMON APPLICATION/UTILITY SETS

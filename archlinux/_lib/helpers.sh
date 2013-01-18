@@ -237,6 +237,7 @@ _loaded_block="$(curl -fsL ${URL})";
 [ -n "$_loaded_block" ] && eval "${_loaded_block}";
 if [ "$?" -gt 0 ]; then
 _anykey "EXECUTION OF BLOCK \"$_block\" EXPERIENCED ERRORS"
+_loaded_block="$(curl -fsL ${URL})";
 fi
 #set -e
 done

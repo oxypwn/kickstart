@@ -7,6 +7,8 @@
 # script -t 2> timings -a session -c ./archlinux.ks
 # scriptreplay timing session
 # Minimize amount of code and make it more human readable.
+# If we get an error we should be able to fix it in the code and let 
+# the install system redownload block if possible.
 # RESPOSITORY ------------------------------------------------------------
 #REMOTE=http://raw.github.com/pandrew/kickstart/master
 REMOTE=http://192.168.1.76:8080

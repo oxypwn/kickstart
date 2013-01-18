@@ -22,13 +22,14 @@ TIMEZONE=Europe/Stockholm
 MODULES="dm_mod dm_crypt aes_x86_64 ext2 ext4 vfat intel_agp drm i915"
 #HOOKS="base udev autodetect pata scsi sata usb usbinput consolefont encrypt filesystems fsck shutdown"
 # possible fix for occasional blank screen on resume? https://wiki.archlinux.org/index.php/Pm-utils#Blank_screen_issue
-
+AUDIO=post/audio_alsa
+XORG=post/xorg_default
 
 
 # EXTRA PACKAGES ---------------------------------------------------------
 # if you don't want to create a new block, you can specify extra packages
 # from official repos or AUR here (simple space separated list of packages)
-PACKAGES="dosfstools zsh git mplayer transmission-cli wireshark-cli xpdf openssh handbrake-cli nmap simple-scan rxvt-unicode xterm vim xorg-xinit xorg dwm terminus-font"
+PACKAGES="dosfstools zsh git mplayer transmission-cli wireshark-cli xpdf openssh handbrake-cli nmap simple-scan rxvt-unicode xterm vim terminus-font"
 AURPACKAGES="mr git-annex-bin dropbox"
 
 # EXECUTE ----------------------------------------------------------------
