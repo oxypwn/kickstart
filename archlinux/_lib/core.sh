@@ -70,7 +70,8 @@ _defaultvalue SOUND ""
 _defaultvalue POWER post/power_acpi
 _defaultvalue SENSORS post/sensors_default
 _defaultvalue DESKTOP ""
-_defaultvalue USERS "post/setup_user post/setup_root"
+_defaultvalue USERS "post/setup_user"
+_defaultvalue AUTH "post/setup_accauth"
 _defaultvalue APPSETS ""
 _defaultvalue PACKAGES "git"
 _defaultvalue AURPACKAGES ""
@@ -111,8 +112,8 @@ _loadblock "${POWER}"           # POWER
 _loadblock "${RAMDISK}"         # RAMDISK
 _loadblock "${BLACKLIST}"	# BLACKLIST
 _loadblock "${BOOTLOADER}"      # BOOTLOADER
-#_loadblock "${SUDO}"
-#_loadblock "${USERS}"      # COMMON POST INSTALL ROUTINES
+_loadblock "${SUDO}"
+_loadblock "${USERS}"      # COMMON POST INSTALL ROUTINES
 _loadblock "${XORG}"            # XORG
 #_loadblock "${DESKTOP}"         # DESKTOP/WM/ETC
 #_loadblock "${HARDWARE}"        # COMMON POST INSTALL ROUTINES
@@ -120,7 +121,9 @@ _loadblock "${APPSETS}"         # COMMON APPLICATION/UTILITY SETS
 _installpkg ${PACKAGES}
 _installaur ${AURPACKAGES}
 #_loadblock "${MR_BOOTSTRAP+common/mr_bootstrap}" # only if MR_BOOTSTRAP set
-_loadblock "${SUDO}"
-_loadblock "${USERS}"      # COMMON POST INSTALL ROUTINES
+#_loadblock "${SUDO}"
+#_loadblock "${USERS}"      # COMMON POST INSTALL ROUTINES
+_loadblock "${MR_BOOTSTRAP+post/mr_bootstrap}"
+_loadblock "${AUTH}"
 fi
 

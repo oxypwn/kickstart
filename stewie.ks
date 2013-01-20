@@ -13,7 +13,7 @@ REMOTE=http://192.168.1.76:8080
 # CONFIG -----------------------------------------------------------------
 HOSTNAME=stewie
 USERNAME=pandrew
-USERSHELL=/bin/bash
+USERSHELL=/bin/zsh
 FONT=ter-116n
 FONT_MAP=8859-1
 LANGUAGE=en_US.UTF-8
@@ -30,6 +30,10 @@ APPSETS="appsets/xorg_default appsets/virtualbox"
 # from official repos or AUR here (simple space separated list of packages)
 PACKAGES="dosfstools zsh git transmission-cli wireshark-cli openvpn openssh handbrake-cli nmap rxvt-unicode xterm vim terminus-font"
 AURPACKAGES="mr git-annex-bin dropbox"
+
+
+
+MR_BOOTSTRAP=${REMOTE}/.mrconfig
 
 # EXECUTE ----------------------------------------------------------------
 . <(curl -fsL "${REMOTE}/archlinux/_lib/helpers.sh"); _loadblock "_lib/core"

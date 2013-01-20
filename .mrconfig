@@ -1,0 +1,58 @@
+# -*- mode: sh -*-
+
+[DEFAULT]
+# Include libs
+#include = cat ${XDG_CONFIG_HOME:-$HOME/.config}/mr/config.d/* > /dev/null || true
+git_gc = git gc "$@"
+jobs = 5
+
+lib = 
+    hostname="$(hostname)"
+    whoami="$(whoami)"
+    anon() {
+        ( GIT_CONFIG=$HOME/pandrew-home/.git/config git config remote.origin.url || cat .git/remotes/origin ) | grep -q 'git://'
+    }
+    full() {
+        test "$whoami" = pandrew && ! anon
+    }
+    on() {
+        for host in $@; do
+            if [ "${host%@*}" != "${host#*@}" ]; then
+                if [ "$whoami" != "${host%@*}" ]; then
+                    continue
+                fi
+                host="${host#*@}"
+            fi
+            if [ "$hostname" = "$host" ]; then
+                return 0
+            fi
+        done
+        return 1
+    }
+    mylaptop() {
+        on pandrew@brian
+    }
+
+[$HOME/pandrew-home]
+order = 1
+checkout =
+    if anon; then
+        git clone git://github.com/pandrew/pandrew-home pandrew-home
+    else
+        git clone git://github.com/pandrew/pandrew-home pandrew-home
+    fi
+fixups = rsync -avzP --exclude '.git' $HOME/pandrew-home/ $HOME/
+
+
+[$HOME/.oh-my-zsh]
+checkout = git clone 'git://github.com/robbyrussell/oh-my-zsh.git' '.oh-my-zsh'
+#fixups = chsh -s $(which zsh) || echo "Zsh not available"
+
+[$HOME/.vim/bundle/vundle]
+checkout =  git clone 'git://github.com/gmarik/vundle.git' 'vundle'
+
+[$HOME/.rbenv]
+checkout = git clone 'git://github.com/sstephenson/rbenv.git' '.rbenv'
+
+[$HOME/.pyenv]
+checkout = git clone 'git://github.com/yyuu/pyenv.git' '.pyenv'
