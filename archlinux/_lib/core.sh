@@ -111,14 +111,16 @@ _loadblock "${POWER}"           # POWER
 _loadblock "${RAMDISK}"         # RAMDISK
 _loadblock "${BLACKLIST}"	# BLACKLIST
 _loadblock "${BOOTLOADER}"      # BOOTLOADER
-_loadblock "${SUDO}"
-_loadblock "${USERS}"      # COMMON POST INSTALL ROUTINES
+#_loadblock "${SUDO}"
+#_loadblock "${USERS}"      # COMMON POST INSTALL ROUTINES
 _loadblock "${XORG}"            # XORG
 #_loadblock "${DESKTOP}"         # DESKTOP/WM/ETC
 #_loadblock "${HARDWARE}"        # COMMON POST INSTALL ROUTINES
-#_loadblock "${APPSETS}"         # COMMON APPLICATION/UTILITY SETS
+_loadblock "${APPSETS}"         # COMMON APPLICATION/UTILITY SETS
 _installpkg ${PACKAGES}
 _installaur ${AURPACKAGES}
 #_loadblock "${MR_BOOTSTRAP+common/mr_bootstrap}" # only if MR_BOOTSTRAP set
+_loadblock "${SUDO}"
+_loadblock "${USERS}"      # COMMON POST INSTALL ROUTINES
 fi
 
