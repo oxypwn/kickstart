@@ -19,6 +19,7 @@ if _systemd; then
     systemctl enable net-auto-wireless.service
     # systemctl enable netcfg.service # - uses profiles listed in /etc/conf.d/netcfg NETWORKS=(...)
     # systemctl enable netcfg@PROFILENAME.service
+    ln -s '/usr/lib/systemd/dhcpcd.service' '/etc/systemd/system/multi-user.target.wants/dhcpcd.service'
 else
     _daemon_remove network
     _daemon_add net-auto-wireless net-auto-wired ifplugd net-profiles
