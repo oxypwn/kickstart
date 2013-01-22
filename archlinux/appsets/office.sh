@@ -1,3 +1,3 @@
 #!/bin/bash
 
-_installpkg zathura zathura-pdf-mupdf
+_installpkg zathura zathura-pdf-mupdf unrar
