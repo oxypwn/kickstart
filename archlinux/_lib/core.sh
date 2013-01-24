@@ -120,9 +120,6 @@ _loadblock "${XORG}"            # XORG
 _loadblock "${APPSETS}"         # COMMON APPLICATION/UTILITY SETS
 _installpkg ${PACKAGES}
 _installaur ${AURPACKAGES}
-#_loadblock "${MR_BOOTSTRAP+common/mr_bootstrap}" # only if MR_BOOTSTRAP set
-#_loadblock "${SUDO}"
-#_loadblock "${USERS}"      # COMMON POST INSTALL ROUTINES
 _loadblock "${MR_BOOTSTRAP+post/mr_bootstrap}"
 _loadblock "${AUTH}"
 fi

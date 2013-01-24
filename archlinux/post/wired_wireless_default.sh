@@ -37,6 +37,6 @@ cat > /usr/bin/wifi << EOF
 # but wifi-menu still only checks if you are root or sudoing, unlike netcfg.
 # This simply wraps wifi-menu in sudo.
 
-sudo wifi-menu $@
+sudo wifi-menu
 EOF
 chmod a+x /usr/bin/wifi
