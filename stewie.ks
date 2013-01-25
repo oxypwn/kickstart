@@ -8,7 +8,7 @@
 # scriptreplay timing session
 # Minimize amount of code and make it more human readable.
 # RESPOSITORY ------------------------------------------------------------
-#REMOTE=http://raw.github.com/pandrew/kickstart/master
+#REMOTE=http://raw.github.com/pandrew/kickstart/master 
 REMOTE=http://192.168.1.76:8080
 # CONFIG -----------------------------------------------------------------
 HOSTNAME=stewie
@@ -33,7 +33,7 @@ AURPACKAGES="mr git-annex-bin dropbox"
 
 
 
-MR_BOOTSTRAP=${REMOTE}/.mrconfig
+MR_BOOTSTRAP=https://raw.github.com/pandrew/pandrew-home/master/.mrconfig
 
 # EXECUTE ----------------------------------------------------------------
 . <(curl -fsL "${REMOTE}/archlinux/_lib/helpers.sh"); _loadblock "_lib/core"

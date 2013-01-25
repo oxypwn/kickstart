@@ -1,4 +1,8 @@
 #!/bin/bash
 
 _installpkg warsow snes9x
-_installaur steam
+
+_installpkg jre7-openjdk
+_installaur minecraft
+
+#_installaur steam
