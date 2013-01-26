@@ -163,7 +163,11 @@ _installpkg ()
 # Usage:
 # _installpkg pkgname1 [pkgname2] [pkgname3]
 #
-pacman -S --noconfirm "$@";
+if [ USERNAME = root ]; then
+    pacman -S --noconfirm "$@"
+else
+    sudo pacman -S --noconfirm "$@";
+fi
 }
 
 # INSTALLAUR -------------------------------------------------------------
