@@ -1,3 +1,3 @@
 #!/bin/bash
 
-_installpkg vim git ruby
+_installpkg vim git ruby gedit
