@@ -163,10 +163,10 @@ _installpkg ()
 # Usage:
 # _installpkg pkgname1 [pkgname2] [pkgname3]
 #
-if [ USERNAME = root ]; then
-    pacman -S --noconfirm "$@"
-else
+if  [[ $EUID -ne 0 ]]; then
     sudo pacman -S --noconfirm "$@";
+else
+    pacman -S --noconfirm "$@";
 fi
 }
 
@@ -259,9 +259,9 @@ _loaded_block="$(curl -fsL ${URL})";
 
 #set +e
 [ -n "$_loaded_block" ] && eval "${_loaded_block}";
-    while [ "$?" -gt 0 ]; do
-        _fixblock
-    done
+     while [ "$?" -gt 0 ]; do
+         _fixblock
+     done
 #set -e
 done
 } 
