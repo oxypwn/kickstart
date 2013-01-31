@@ -1,7 +1,7 @@
 #!/bin/bash
 # Set INSTALL_DRIVE to /dev/sda1 if not already set
 
-[ -z $INSTALL_DRIVE ] && INSTALL_DRIVE="/dev/sda"
+#[ -z $INSTALL_DRIVE ] && INSTALL_DRIVE="/dev/sda"
 
 BOOT_DRIVE=$INSTALL_DRIVE
 AMOUNT_SWAP=1
