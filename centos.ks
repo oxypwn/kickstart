@@ -48,9 +48,9 @@ network  --bootproto=dhcp --device=eth0 --onboot=on --hostname mail
 # 10.0.0.0-10.255.255.255
 # 172.16.0.0-172.16.255.255
 # 192.168.0.0-192.168.255.255
-network  --bootproto=static --device=eth1 --ip=10.10.10.4 --onboot=on --netmask=255.255.255.0
+#network  --bootproto=static --device=eth1 --ip=10.10.10.4 --onboot=on --netmask=255.255.255.0
 # External
-network --bootproto=static --device=eth2 --ip=172.16.0.2 --onboot=on --netmask=255.255.255.0
+#network --bootproto=static --device=eth2 --ip=172.16.0.2 --onboot=on --netmask=255.255.255.0
 
 
 
