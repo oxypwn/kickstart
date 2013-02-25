@@ -322,6 +322,13 @@ pacman --noconfirm -Sy
 
 }
 
+_cleanup ()
+{
+# Remove files We dont need in the system.
+rm $POSTSCRIPT
+}
+
+
 # INIT/SYSTEMD FUNCTIONS -------------------------------------------------
 
 # return true if INIT_MODE is systemd (this is the INIT_MODE default)

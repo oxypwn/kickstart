@@ -71,7 +71,7 @@ _defaultvalue POWER post/power_acpi
 _defaultvalue SENSORS post/sensors_default
 _defaultvalue DESKTOP ""
 _defaultvalue USERS "post/setup_user"
-_defaultvalue AUTH "post/setup_accauth"
+_defaultvalue AUTH "post/setup_acc"
 _defaultvalue APPSETS ""
 _defaultvalue PACKAGES "git"
 _defaultvalue AURPACKAGES ""
@@ -122,5 +122,6 @@ _installpkg ${PACKAGES}
 _installaur ${AURPACKAGES}
 _loadblock "${MR_BOOTSTRAP+post/mr_bootstrap}"
 _loadblock "${AUTH}"
+_cleanup
 fi
 
