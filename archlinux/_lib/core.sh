@@ -34,7 +34,7 @@ _defaultvalue LANGUAGE en_US.UTF-8
 _defaultvalue KEYMAP us
 _defaultvalue TIMEZONE US/Pacific
 _defaultvalue MODULES ""
-_defaultvalue HOOKS "base udev autodetect block filesystems shutdown usbinput fsck keymap"
+_defaultvalue HOOKS "base udev autodetect block filesystems shutdown keyboard fsck keymap"
 _defaultvalue KERNEL_PARAMS # "quiet" # set/used in FILESYSTEM,INIT,BOOTLOADER blocks
 _defaultvalue AURHELPER packer
 _defaultvalue INSTALL_DRIVE /dev/sda # this overrides any default value set in FILESYSTEM block

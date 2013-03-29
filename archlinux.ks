@@ -13,7 +13,7 @@
 #REMOTE=http://raw.github.com/pandrew/kickstart/master
 REMOTE=http://192.168.1.76:8080
 # CONFIG -----------------------------------------------------------------
-HOSTNAME=brian
+HOSTNAME=archminimal
 USERNAME=paul
 USERSHELL=/bin/bash
 FONT=ter-116n
