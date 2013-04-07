@@ -7,7 +7,7 @@
 # script -t 2> timings -a session -c ./archlinux.ks
 # scriptreplay timing session
 # RESPOSITORY ------------------------------------------------------------
-#REMOTE=http://raw.github.com/pandrew/kickstart/master 
+#REMOTE=http://raw.github.com/pandrew/kickstart/archlinux/master 
 REMOTE=http://192.168.1.76:8080
 # CONFIG -----------------------------------------------------------------
 HOSTNAME=stewie
