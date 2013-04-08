@@ -34,6 +34,7 @@ _defaultvalue LANGUAGE en_US.UTF-8
 _defaultvalue KEYMAP us
 _defaultvalue TIMEZONE US/Pacific
 _defaultvalue MODULES ""
+# The HOOK="encrypt" might give warnings upon boot when you dont have any encrypted filesystem to decrypt.
 _defaultvalue HOOKS "base udev autodetect block filesystems shutdown keyboard fsck keymap"
 _defaultvalue KERNEL_PARAMS # "quiet" # set/used in FILESYSTEM,INIT,BOOTLOADER blocks
 _defaultvalue AURHELPER packer
