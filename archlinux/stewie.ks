@@ -7,8 +7,7 @@
 # script -t 2> timings -a session -c ./archlinux.ks
 # scriptreplay timing session
 # RESPOSITORY ------------------------------------------------------------
-#REMOTE=http://raw.github.com/pandrew/kickstart/archlinux/master 
-REMOTE=http://192.168.1.76:8080
+REMOTE=http://raw.github.com/pandrew/kickstart/master/archlinux
 # CONFIG -----------------------------------------------------------------
 HOSTNAME=stewie
 USERNAME=pandrew
@@ -21,7 +20,7 @@ TIMEZONE=Europe/Stockholm
 MODULES="virtio_blk virtio_pci virtio_net dm_mod dm_crypt aes_x86_64 ext2 ext4 vfat intel_agp drm i915"
 #HOOKS="base udev autodetect block usbinput consolefont encrypt filesystems fsck shutdown"
 # The HOOK="encrypt" might give warnings upon boot when you dont have any encrypted filesystem to decrypt.
-HOOKS="base udev autodetect block usbinput consolefont filesystems fsck shutdown"
+HOOKS="base udev autodetect block keyboard consolefont filesystems fsck shutdown"
 # possible fix for occasional blank screen on resume? https://wiki.archlinux.org/index.php/Pm-utils#Blank_screen_issue
 AUDIO=post/audio_alsa
 APPSETS="appsets/xorg_default appsets/mutt  appsets/virtual appsets/office"
