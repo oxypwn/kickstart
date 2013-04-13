@@ -22,17 +22,18 @@ MNT=/mnt; TMP=/tmp/archblocks; POSTSCRIPT="/postinstall.sh"
 # (probably not useful here if initialization script has already used it,
 # but retained here for reference)
 
-_defaultvalue REMOTE https://raw.github.com/altercation/archblocks/master
+_defaultvalue REMOTE http://raw.github.com/pandrew/kickstart/master/archlinux
 
 # DEFAULT CONFIG VALUES --------------------------------------------------
 
 _defaultvalue HOSTNAME archlinux
 _defaultvalue USERSHELL /bin/bash
+_defaultvalue GROUPS ""
 _defaultvalue FONT ter-116n
 _defaultvalue FONT_MAP 8859-1
 _defaultvalue LANGUAGE en_US.UTF-8
 _defaultvalue KEYMAP us
-_defaultvalue TIMEZONE US/Pacific
+_defaultvalue TIMEZONE Europe/Stockholm
 _defaultvalue MODULES ""
 # The HOOK="encrypt" might give warnings upon boot when you dont have any encrypted filesystem to decrypt.
 _defaultvalue HOOKS "base udev autodetect block filesystems shutdown keyboard fsck keymap"
@@ -71,16 +72,14 @@ _defaultvalue SOUND ""
 _defaultvalue POWER post/power_acpi
 _defaultvalue SENSORS post/sensors_default
 _defaultvalue DESKTOP ""
-_defaultvalue USERS "post/setup_user"
-_defaultvalue AUTH "post/setup_acc"
+_defaultvalue USERS post/setup_user
+_defaultvalue AUTH post/setup_acc
 _defaultvalue APPSETS ""
 _defaultvalue PACKAGES "git"
 _defaultvalue AURPACKAGES ""
 
 # ARCH PREP & SYSTEM INSTALL (PRE CHROOT) --------------------------------
 if ! $INCHROOT; then
-#_initialwarning                 # WARN USER OF IMPENDING DOOM
-#_setfont                        # SET FONT FOR PLEASANT INSTALL EXPERIENCE
 _load_efi_modules || true       # ATTEMPT TO LOAD EFIVARS, EVEN IF NOT USING EFI (REQUIRED)
 _loadblock "${FILESYSTEM}"      # LOAD FILESYSTEM (FUNCTIONS AND VARIABLE DECLARATION ONLY)
 _filesystem_pre_baseinstall     # FILESYSTEM PARTITION FORMAT MOUNT
@@ -88,7 +87,6 @@ _loadblock "${FSTAB}"     # LOAD FSTAB
 _install_mirrorlist		# INSTALL MIRRORLIST TO LIVE AND CHROOT ENVIRONMENT
 _loadblock "${INSTALL}"         # INSTALL ARCH
 _filesystem_post_baseinstall    # WRITE FSTAB/CRYPTTAB AND ANY OTHER POST INTALL FILESYSTEM CONFIG
-#_filesystem_pre_chroot          # PROBABLY UNMOUNT OF BOOT IF INSTALLING UEFI MODE
 _chroot_postscript              # CHROOT AND CONTINUE EXECUTION
 fi
 
