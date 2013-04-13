@@ -1,7 +1,10 @@
 # ------------------------------------------------------------------------
 # NETWORK
 # ------------------------------------------------------------------------
+#https://www.archlinux.org/news/netctl-is-now-in-core/
 _installpkg netcfg
+
+_installpkg netctl
 _installpkg coreutils
 _installpkg dhcpcd
 _installpkg iproute2
