@@ -13,6 +13,7 @@ REMOTE=http://raw.github.com/pandrew/kickstart/master
 HOSTNAME=lfsbuildbot01
 USERNAME=pandrew
 USERSHELL=/bin/zsh
+ADDTOGROUPS="audio,lp,optical,storage,video,games,power,scanner,network,wheel,sudo,sys,wireshark,vboxusers,kvm"
 FONT=ter-116n
 FONT_MAP=8859-1
 LANGUAGE=en_US.UTF-8
