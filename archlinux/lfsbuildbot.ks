@@ -8,7 +8,7 @@
 # scriptreplay timing session
 # Minimize amount of code and make it more human readable.
 # RESPOSITORY ------------------------------------------------------------
-REMOTE=http://raw.github.com/pandrew/kickstart/master
+REMOTE=http://raw.github.com/pandrew/kickstart/master/archlinux
 # CONFIG -----------------------------------------------------------------
 HOSTNAME=lfsbuildbot01
 USERNAME=pandrew
