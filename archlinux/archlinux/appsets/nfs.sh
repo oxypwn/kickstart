@@ -2,9 +2,9 @@
 _installpkg nfs-utils
 
 
-mkdir -p /mnt/sync
+mkdir -p /home/${USERNAME}/sync
 mkdir -p /srv/nfs4/share
-mount --bind /mnt/sync /srv/nfs4/share
+mount --bind /home/${USERNAME}/sync /srv/nfs4/share
 
 curl -fsL ${REMOTE}/conf/exports -o /etc/exports
 
