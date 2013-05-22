@@ -14,13 +14,13 @@ firstboot --disable
 # scientific linux
 #url --url="ftp://ftp.sunet.se/pub/Linux/distributions/scientific/6.3/x86_64/os/"
 # centos
-url --url="http://ftp.sunet.se/pub/Linux/distributions/centos/6.3/os/x86_64/"
+url --url="http://ftp.sunet.se/pub/Linux/distributions/centos/6.4/os/x86_64/"
 
 ### Root password
 # To generate a password using MD5 alg. to suite rootpw:
 # openssl passed -1 -salt "shaker" "your_password"
 # rootpw --iscrypted $1$HFDgGGnA$5Fdxy9dn6aQ.jdu14DNxF0
-rootpw ang100ice
+rootpw root
 # System authorization information
 auth  --useshadow  --enablemd5
 # Use text mode install
@@ -87,7 +87,7 @@ nmap
 
 %post
 ###variables
-REMOTE=192.168.1.76:8080
+REMOTE=https://raw.github.com/pandrew/kickstart/master
 ###adding users
 for i in $(/usr/bin/curl -s -L $REMOTE/users.txt | cat);do
     useradd -b /home -m  $i 
@@ -102,5 +102,5 @@ done
 yum update -y
 
 
-#chage -d 0 root
+chage -d 0 root
 %end
