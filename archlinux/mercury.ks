@@ -7,36 +7,31 @@
 # script -t 2> timings -a session -c ./archlinux.ks
 # scriptreplay timing session
 # Minimize amount of code and make it more human readable.
+# If we get an error we should be able to fix it in the code and let 
+# the install system redownload block if possible.
 # RESPOSITORY ------------------------------------------------------------
-#REMOTE=http://raw.github.com/pandrew/kickstart/master
-REMOTE=http://192.168.1.76:8080
+REMOTE=http://raw.github.com/pandrew/kickstart/master/archlinux
 # CONFIG -----------------------------------------------------------------
-HOSTNAME=brian
+HOSTNAME=mercury
 USERNAME=pandrew
 ADDTOGROUPS="audio,lp,optical,storage,video,games,power,scanner,network,wheel,sudo,sys,wireshark,vboxusers,kvm"
-USERSHELL=/bin/zsh
+USERSHELL=/bin/bash
 FONT=ter-116n
 FONT_MAP=8859-1
 LANGUAGE=en_US.UTF-8
 KEYMAP=svoraka5
 TIMEZONE=Europe/Stockholm
 MODULES="dm_mod dm_crypt aes_x86_64 ext2 ext4 vfat intel_agp drm i915"
-HOOKS="base udev autodetect block keyboard consolefont encrypt filesystems fsck shutdown"
+HOOKS="base udev autodetect block usbinput consolefont encrypt filesystems fsck shutdown"
 # possible fix for occasional blank screen on resume? https://wiki.archlinux.org/index.php/Pm-utils#Blank_screen_issue
-AUDIO=post/audio_alsa
-APPSETS="appsets/default appsets/virtualbox_guest  appsets/xorg_default appsets/dev appsets/mutt appsets/office appsets/ssh"
-# Default install drive is /dev/sda. Specify INSTALL_DRIVE to qemu
+APPSETS="appsets/default"
+
 
 # EXTRA PACKAGES ---------------------------------------------------------
 # if you don't want to create a new block, you can specify extra packages
 # from official repos or AUR here (simple space separated list of packages)
-PACKAGES="dosfstools zsh git transmission-cli  handbrake-cli rxvt-unicode xterm vim terminus-font"
-AURPACKAGES="mr git-annex-bin dropbox"
-
-
-
-MR_BOOTSTRAP=https://raw.github.com/pandrew/pandrew-home/master/.mrconfig
+PACKAGES="dosfstools git mplayer wireshark-cli transmission-cli wireshark-cli xpdf openssh handbrake-cli nmap simple-scan rxvt-unicode xterm vim xorg-xinit xorg dwm terminus-font"
+AURPACKAGES="mr"
 
 # EXECUTE ----------------------------------------------------------------
 . <(curl -fsL "${REMOTE}/archlinux/_lib/helpers.sh"); _loadblock "_lib/core"
-

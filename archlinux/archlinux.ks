@@ -15,6 +15,7 @@ REMOTE=http://192.168.1.76:8080
 # CONFIG -----------------------------------------------------------------
 HOSTNAME=archminimal
 USERNAME=paul
+ADDTOGROUPS="audio,lp,optical,storage,video,games,power,scanner,network,wheel,sudo,sys,wireshark,vboxusers,kvm"
 USERSHELL=/bin/bash
 FONT=ter-116n
 FONT_MAP=8859-1
