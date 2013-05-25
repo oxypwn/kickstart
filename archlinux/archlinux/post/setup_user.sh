@@ -4,4 +4,4 @@ groupadd wireshark
 groupadd vboxusers
 groupadd kvm
 
-useradd -m -g users -G ${ADDTOGROUPS} -s ${USERSHELL} ${USERNAME}
+useradd -m -g ${GROUP} -G ${GROUPS} -s ${USERSHELL} ${USERNAME}

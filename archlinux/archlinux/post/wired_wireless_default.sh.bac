@@ -4,6 +4,7 @@
 #https://www.archlinux.org/news/netctl-is-now-in-core/
 _installpkg netcfg
 
+_installpkg netctl
 _installpkg coreutils
 _installpkg dhcpcd
 _installpkg iproute2
@@ -16,43 +17,16 @@ _installpkg wpa_actiond # (optional) - for automatic wireless connections throug
 _installpkg wpa_supplicant # (optional) - for wireless networking support
 _installpkg iw rfkill
 
-systemctl enable net-auto-wired.service
-systemctl enable net-auto-wireless.service
-systemctl enable netcfg.service # - uses profiles listed in /etc/conf.d/netcfg NETWORKS=(...)
-systemctl enable netcfg@PROFILENAME.service
-
-cat > /etc/conf.d/netcfg << EOF
-NETWORKS=(last)
-WIRED_INTERFACE="eth0"
-WIRELESS_INTERFACE="wlan0"
-AUTO_PROFILES=("${NETWORK_PROFILE}")
-
-EOF
-
-cat > /etc/network.d/examples/ethernet-static << EOF
-CONNECTION='ethernet'
-DESCRIPTION='A basic static ethernet connection using iproute'
-INTERFACE='eth0'
-IP='static'
-ADDR='192.168.2.90'
-#ROUTES=('192.168.1.0/24 via 192.168.2.1')
-GATEWAY='192.168.2.1'
-DNS=('192.168.2.1')
-
-## For IPv6 autoconfiguration
-#IP6=stateless
-
-## For IPv6 static address configuration
-#IP6='static'
-#ADDR6=('1234:5678:9abc:def::1/64' '1234:3456::123/96')
-#ROUTES6=('abcd::1234')
-#GATEWAY6='1234:0:123::abcd'
-
-EOF
-
-
-
-
+if _systemd; then
+    systemctl enable net-auto-wired.service
+    systemctl enable net-auto-wireless.service
+    # systemctl enable netcfg.service # - uses profiles listed in /etc/conf.d/netcfg NETWORKS=(...)
+    # systemctl enable netcfg@PROFILENAME.service
+    ln -s '/usr/lib/systemd/dhcpcd.service' '/etc/systemd/system/multi-user.target.wants/dhcpcd.service'
+else
+    _daemon_remove network
+    _daemon_add net-auto-wireless net-auto-wired ifplugd net-profiles
+fi
 
 mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.orig
 echo -e "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=network\nupdate_config=1" > /etc/wpa_supplicant/wpa_supplicant.conf
