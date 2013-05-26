@@ -2,7 +2,6 @@
 # NETWORK
 # ------------------------------------------------------------------------
 #https://www.archlinux.org/news/netctl-is-now-in-core/
-_installpkg netcfg
 
 _installpkg coreutils
 _installpkg dhcpcd
@@ -18,8 +17,11 @@ _installpkg iw rfkill
 
 systemctl enable net-auto-wired.service
 systemctl enable net-auto-wireless.service
+
+_installaur netcfg
 systemctl enable netcfg.service # - uses profiles listed in /etc/conf.d/netcfg NETWORKS=(...)
 systemctl enable netcfg@PROFILENAME.service
+
 
 cat > /etc/conf.d/netcfg << EOF
 NETWORKS=(last)
