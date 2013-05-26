@@ -18,8 +18,8 @@ _installpkg iw rfkill
 #systemctl enable net-auto-wired.service      # deprecated
 #systemctl enable net-auto-wireless.service   # deprecated
 
-systemctl enable netctl-auto@<interface>.service 
-systemctl enable netctl-ifplugd@<interface>.service
+systemctl enable netctl-auto@wlan0.service 
+systemctl enable netctl-ifplugd@eth0.service
 
 cat > /etc/conf.d/netcfg << EOF
 NETWORKS=(last)
