@@ -29,7 +29,7 @@ AUTO_PROFILES=("${NETWORK_PROFILE}")
 
 EOF
 
-cat > /etc/netctl/examples/ethernet-static << EOF
+cat > /etc/netctl/ethernet-static << EOF
 CONNECTION='ethernet'
 DESCRIPTION='A basic static ethernet connection using iproute'
 INTERFACE='eth0'
