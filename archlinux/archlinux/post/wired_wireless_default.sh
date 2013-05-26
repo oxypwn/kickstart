@@ -9,19 +9,17 @@ _installpkg iproute2
 _installpkg bridge-utils # (optional) - for bridge connections
 _installpkg dialog # (optional) - for the menu based profile and wifi selectors
 _installpkg ifenslave # (optional) - for bond connections
-_installpkg ifplugd # (optional) - for automatic wired connections through net-auto-wired
+_installpkg ifplugd 
 _installpkg wireless_tools # (optional) - for interface renaming through net-rename
-_installpkg wpa_actiond # (optional) - for automatic wireless connections through net-auto-wireless
+_installpkg wpa_actiond 
 _installpkg wpa_supplicant # (optional) - for wireless networking support
 _installpkg iw rfkill
 
-systemctl enable net-auto-wired.service
-systemctl enable net-auto-wireless.service
+#systemctl enable net-auto-wired.service      # deprecated
+#systemctl enable net-auto-wireless.service   # deprecated
 
-_installaur netcfg
-systemctl enable netcfg.service # - uses profiles listed in /etc/conf.d/netcfg NETWORKS=(...)
-systemctl enable netcfg@PROFILENAME.service
-
+systemctl enable netctl-auto@<interface>.service 
+systemctl enable netctl-ifplugd@<interface>.service
 
 cat > /etc/conf.d/netcfg << EOF
 NETWORKS=(last)
@@ -31,7 +29,7 @@ AUTO_PROFILES=("${NETWORK_PROFILE}")
 
 EOF
 
-cat > /etc/network.d/examples/ethernet-static << EOF
+cat > /etc/netctl/examples/ethernet-static << EOF
 CONNECTION='ethernet'
 DESCRIPTION='A basic static ethernet connection using iproute'
 INTERFACE='eth0'
