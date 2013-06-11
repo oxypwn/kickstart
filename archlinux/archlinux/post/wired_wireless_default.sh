@@ -18,39 +18,31 @@ _installpkg iw rfkill
 #systemctl enable net-auto-wired.service      # deprecated
 #systemctl enable net-auto-wireless.service   # deprecated
 
-systemctl enable netctl-auto@wlan0.service 
-systemctl enable netctl-ifplugd@eth0.service
 
-cat > /etc/conf.d/netcfg << EOF
-NETWORKS=(last)
-WIRED_INTERFACE="eth0"
-WIRELESS_INTERFACE="wlan0"
-AUTO_PROFILES=("${NETWORK_PROFILE}")
 
-EOF
-
-cat > /etc/netctl/ethernet-static << EOF
-CONNECTION='ethernet'
-DESCRIPTION='A basic static ethernet connection using iproute'
-INTERFACE='eth0'
-IP='static'
-ADDR='192.168.2.90'
-#ROUTES=('192.168.1.0/24 via 192.168.2.1')
-GATEWAY='192.168.2.1'
+cat > /etc/netctl/ethernet << EOF
+Connection=ethernet
+Description='A basic static ethernet connection using iproute'
+Interface=ens33
+IP=static
+Address=('${IPADDRESS}')
+#Routes=('192.168.1.0/24 via 192.168.2.1')
+Gateway='192.168.2.1'
 DNS=('192.168.2.1')
 
 ## For IPv6 autoconfiguration
 #IP6=stateless
 
 ## For IPv6 static address configuration
-#IP6='static'
-#ADDR6=('1234:5678:9abc:def::1/64' '1234:3456::123/96')
-#ROUTES6=('abcd::1234')
-#GATEWAY6='1234:0:123::abcd'
+#IP6=static
+#Adress66=('1234:5678:9abc:def::1/64' '1234:3456::123/96')
+#Routes6=('abcd::1234')
+#Gateway6='1234:0:123::abcd'
 
 EOF
 
-
+#systemctl enable netctl-auto@wlan0.service
+systemctl enable netctl-ifplugd@ens33.service
 
 
 

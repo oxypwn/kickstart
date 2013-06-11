@@ -15,7 +15,7 @@ REMOTE=http://raw.github.com/pandrew/kickstart/master/archlinux
 HOSTNAME=mercury
 USERNAME=pandrew
 GROUP="users"
-GROUPS="audio,lp,optical,storage,video,games,power,scanner,network,wheel,sudo,sys,wireshark,vboxusers,kvm"
+ADDTOGROUPS="audio,lp,optical,storage,video,games,power,scanner,network,wheel,sudo,sys,wireshark,vboxusers,kvm"
 USERSHELL=/bin/bash
 FONT=ter-116n
 FONT_MAP=8859-1
@@ -26,7 +26,7 @@ MODULES="dm_mod dm_crypt aes_x86_64 ext2 ext4 vfat intel_agp drm i915"
 HOOKS="base udev autodetect block keyboard consolefont encrypt filesystems fsck shutdown"
 # possible fix for occasional blank screen on resume? https://wiki.archlinux.org/index.php/Pm-utils#Blank_screen_issue
 APPSETS="appsets/default"
-NETWORK_PROFILE="ethernet-static"
+IPADDRESS="192.168.2.44/24"
 
 
 # EXTRA PACKAGES ---------------------------------------------------------
