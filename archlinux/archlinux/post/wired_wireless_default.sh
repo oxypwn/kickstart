@@ -18,12 +18,12 @@ _installpkg iw rfkill
 #systemctl enable net-auto-wired.service      # deprecated
 #systemctl enable net-auto-wireless.service   # deprecated
 
-
+INTERFACE=$(ip addr | grep 2: | cut -d: -f2)
 
 cat > /etc/netctl/ethernet << EOF
 Connection=ethernet
 Description='A basic static ethernet connection using iproute'
-Interface=ens33
+Interface=$INTERFACE
 IP=static
 Address=('${IPADDRESS}')
 #Routes=('192.168.1.0/24 via 192.168.2.1')
