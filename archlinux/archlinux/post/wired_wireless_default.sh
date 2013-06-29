@@ -18,12 +18,20 @@ _installpkg iw rfkill
 #systemctl enable net-auto-wired.service      # deprecated
 #systemctl enable net-auto-wireless.service   # deprecated
 
-INTERFACE=$(ip addr | grep 2: | cut -d: -f2)
+
+MACADDRESS=$(cat /sys/class/net/eth0/address)
+
+
+cat > /etc/udev/rules.d/10-network.rules << EOF
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${MACADDRESS}", NAME="eth0"
+
+EOF
+
 
 cat > /etc/netctl/ethernet << EOF
 Connection=ethernet
 Description='A basic static ethernet connection using iproute'
-Interface=$INTERFACE
+Interface=eth0
 IP=static
 Address=('${IPADDRESS}')
 #Routes=('192.168.1.0/24 via 192.168.2.1')
