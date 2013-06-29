@@ -50,7 +50,7 @@ DNS=('192.168.2.1')
 EOF
 
 #systemctl enable netctl-auto@wlan0.service
-systemctl enable netctl-ifplugd@ens33.service
+systemctl enable netctl-ifplugd@eth0.service
 
 
 
