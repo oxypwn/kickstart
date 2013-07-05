@@ -27,7 +27,7 @@ HOOKS="base udev autodetect block keyboard consolefont encrypt filesystems fsck 
 # possible fix for occasional blank screen on resume? https://wiki.archlinux.org/index.php/Pm-utils#Blank_screen_issue
 APPSETS="appsets/default appsets/virtual"
 IPADDRESS="192.168.2.44/24"
-
+INSTALL_DRIVE=/dev/sdb
 
 # EXTRA PACKAGES ---------------------------------------------------------
 # if you don't want to create a new block, you can specify extra packages
