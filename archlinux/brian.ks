@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # http://is.gd/sEXLLU
 # RESPOSITORY ------------------------------------------------------------
 REMOTE=REMOTE=http://raw.github.com/pandrew/kickstart/master/archlinux
