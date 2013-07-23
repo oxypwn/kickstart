@@ -1,12 +1,5 @@
 #!/bin/bash
 
-#mkdir -p /test/{1,2}
-#lsof > /test/1/dump_lsof
-#free -m > /test/1/dump_free
-#pstree > /test/1/dump_pstree
-#df -a > /test/1/dump_df
-#ls /dev/fd/** > /test/1/dump_dev_fd
-
 # sudo
 # ------------------------------------------------------------------------
 _installpkg sudo bash-completion # bash-completion to allow completion even when enter sudo command
@@ -54,5 +47,9 @@ visudo -qcsf /etc/sudoers.temp && cat /etc/sudoers.temp > /etc/sudoers && rm /et
 chown -c root:root /etc/sudoers
 chmod -c 0440 /etc/sudoers
 
-groupadd sudo
+# Ensure the group sudo exist
+egrep -i "^sudo" /etc/group
+if [ $? -eq 1 ]; then
+    groupadd sudo
+fi
 
