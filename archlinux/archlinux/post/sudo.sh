@@ -2,7 +2,7 @@
 
 # sudo
 # ------------------------------------------------------------------------
-_installpkg sudo bash-completion # bash-completion to allow completion even when enter sudo command
+_installpkg bash-completion # bash-completion to allow completion even when enter sudo command
 [ ! -e /etc/sudoers.orig ] && cp /etc/sudoers /etc/sudoers.orig
 [ -e /etc/sudoers.temp ] && rm /etc/sudoers.temp
 

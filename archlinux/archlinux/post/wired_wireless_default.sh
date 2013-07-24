@@ -1,11 +1,9 @@
+#!/usr/bin/env bash
 # ------------------------------------------------------------------------
 # NETWORK
 # ------------------------------------------------------------------------
 #https://www.archlinux.org/news/netctl-is-now-in-core/
 
-_installpkg coreutils
-_installpkg dhcpcd
-_installpkg iproute2
 _installpkg bridge-utils # (optional) - for bridge connections
 _installpkg dialog # (optional) - for the menu based profile and wifi selectors
 _installpkg ifenslave # (optional) - for bond connections
@@ -58,7 +56,7 @@ mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.co
 echo -e "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=network\nupdate_config=1" > /etc/wpa_supplicant/wpa_supplicant.conf
 
 cat > /usr/bin/wifi << EOF
-#!/bin/bash
+#!/usr/bin/bash
 #
 # wifi: helper script for wifi-menu
 #

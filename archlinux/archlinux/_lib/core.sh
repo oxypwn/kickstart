@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # ------------------------------------------------------------------------
 # archblocks - modular Arch Linux install script
 # ------------------------------------------------------------------------
@@ -27,8 +27,8 @@ _defaultvalue REMOTE http://raw.github.com/pandrew/kickstart/master/archlinux
 # DEFAULT CONFIG VALUES --------------------------------------------------
 
 _defaultvalue HOSTNAME archlinux
-_defaultvalue USERSHELL /bin/bash
-_defaultvalue GROUPS ""
+_defaultvalue USERSHELL /usr/bin/bash
+_defaultvalue ADDTOGROUPS "users"
 _defaultvalue FONT ter-116n
 _defaultvalue FONT_MAP 8859-1
 _defaultvalue LANGUAGE en_US.UTF-8
@@ -38,7 +38,6 @@ _defaultvalue MODULES ""
 # The HOOK="encrypt" might give warnings upon boot when you dont have any encrypted filesystem to decrypt.
 _defaultvalue HOOKS "base udev autodetect block filesystems shutdown keyboard fsck keymap"
 _defaultvalue KERNEL_PARAMS # "quiet" # set/used in FILESYSTEM,INIT,BOOTLOADER blocks
-_defaultvalue AURHELPER packer
 _defaultvalue INSTALL_DRIVE /dev/sda # this overrides any default value set in FILESYSTEM block
 _defaultvalue INIT_MODE systemd # systemd vs anything else. Blocks/helpers can check this to confirm systemd use
 
@@ -50,15 +49,15 @@ _defaultvalue INIT_MODE systemd # systemd vs anything else. Blocks/helpers can c
 
 # BLOCKS DEFAULTS --------------------------------------------------------
 
-_defaultvalue INSTALL pre/install-base
+_defaultvalue INSTALL pre/base
 _defaultvalue HARDWARE ""
 _defaultvalue TIME post/time_ntp_utc # or, e.g. time_ntp_localtime
-_defaultvalue SETLOCALE post/locale_default
-_defaultvalue SUDO post/sudo_default
-_defaultvalue HOST post/host_default
-_defaultvalue FILESYSTEM pre/partition-format-mount
+_defaultvalue LOCALE post/locale
+_defaultvalue SUDO post/sudo
+_defaultvalue HOST post/host
+_defaultvalue FILESYSTEM pre/filesystem
 _defaultvalue RAMDISK post/ramdisk_default
-_defaultvalue BOOTLOADER pre/bootloader-grub
+_defaultvalue BOOTLOADER pre/grub
 _defaultvalue NETWORK post/wired_wireless_default
 _defaultvalue BLACKLIST post/blacklist
 _defaultvalue FSTAB pre/fstab
@@ -70,12 +69,12 @@ _defaultvalue AUDIO ""
 _defaultvalue VIDEO ""
 _defaultvalue SOUND ""
 _defaultvalue POWER post/power_acpi
-_defaultvalue SENSORS post/sensors_default
+_defaultvalue SENSORS post/sensors
 _defaultvalue DESKTOP ""
-_defaultvalue USERS post/setup_user
-_defaultvalue AUTH post/setup_acc
+_defaultvalue USERS post/user
+_defaultvalue AUTH post/auth
 _defaultvalue APPSETS ""
-_defaultvalue PACKAGES "git"
+_defaultvalue PACKAGES ""
 _defaultvalue AURPACKAGES ""
 
 # ARCH PREP & SYSTEM INSTALL (PRE CHROOT) --------------------------------
@@ -95,12 +94,9 @@ if $INCHROOT; then
 umount /tmp || _anykey "didn't unmount tmp..."
 #pacman -Sy
 _filesystem_post_chroot         # FILESYSTEM POST-CHROOT CONFIGURATION
-#_systemd && _loadblock "post/systemd_default" # PURE SYSTEMD INSTALL
-_loadblock "${SETLOCALE}"       # SET LOCALE
+_loadblock "${LOCALE}"       # SET LOCALE
 _loadblock "${TIME}"            # TIME
 _loadblock "${HOST}"            # HOSTNAME
-                                # DAEMONS
-                                # INIT/SYSTEMD
 _loadblock "${NETWORK}"         # NETWORKING
 _loadblock "${AUDIO}"           # AUDIO
 #_loadblock "${VIDEO}"           # VIDEO
@@ -111,14 +107,14 @@ _loadblock "${POWER}"           # POWER
 _loadblock "${RAMDISK}"         # RAMDISK
 _loadblock "${BLACKLIST}"	# BLACKLIST
 _loadblock "${BOOTLOADER}"      # BOOTLOADER
-_loadblock "${SUDO}"
-_loadblock "${USERS}"      # COMMON POST INSTALL ROUTINES
 _loadblock "${XORG}"            # XORG
 #_loadblock "${DESKTOP}"         # DESKTOP/WM/ETC
 #_loadblock "${HARDWARE}"        # COMMON POST INSTALL ROUTINES
 _loadblock "${APPSETS}"         # COMMON APPLICATION/UTILITY SETS
 _installpkg ${PACKAGES}
 _installaur ${AURPACKAGES}
+_loadblock "${SUDO}"
+_loadblock "${USERS}"
 _loadblock "${MR_BOOTSTRAP+post/mr_bootstrap}"
 _loadblock "${AUTH}"
 _cleanup

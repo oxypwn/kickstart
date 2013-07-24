@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # LOCALE
+
+# Install fonts
+_installpkg terminus-font
 
 _uncommentvalue ${LANGUAGE} /etc/locale.gen; locale-gen
 export LANG=${LANGUAGE}; echo -e "LANG=${LANGUAGE}\nLC_COLLATE=C" > /etc/locale.conf

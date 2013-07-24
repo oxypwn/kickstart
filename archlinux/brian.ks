@@ -7,7 +7,7 @@ HOSTNAME=brian
 USERNAME=pandrew
 GROUP="users"
 ADDTOGROUPS="audio,lp,optical,storage,video,games,power,scanner,network,wheel,sudo,sys,wireshark,vboxusers,kvm"
-USERSHELL=/bin/zsh
+USERSHELL=/usr/bin/zsh
 FONT=ter-116n
 FONT_MAP=8859-1
 LANGUAGE=en_US.UTF-8
@@ -23,7 +23,7 @@ APPSETS="appsets/default"
 # EXTRA PACKAGES ---------------------------------------------------------
 # if you don't want to create a new block, you can specify extra packages
 # from official repos or AUR here (simple space separated list of packages)
-PACKAGES="dosfstools zsh git rxvt-unicode xterm vim terminus-font"
+PACKAGES=""
 AURPACKAGES="mr git-annex-bin dropbox"
 
 

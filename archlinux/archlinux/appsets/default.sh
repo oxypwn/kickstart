@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-_installpkg tmux iptraf-ng
+_installpkg zsh rxvt-unicode vim tmux iptraf-ng
 
 # Install ssh
 _installpkg openssh

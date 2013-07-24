@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # ------------------------------------------------------------------------
 # archblocks - modular Arch Linux install script
 # ------------------------------------------------------------------------
@@ -95,52 +95,6 @@ sed -i "s_\(${listname}\s*=\s*[^)]*\))_\1 ${newitem})_" "${filepath}";
 sed -i "s_\(${listname}\s*=\s*\"[^\"]*\)\"_\1 ${newitem}\"_" "${filepath}";
 fi
 }
-
-# DAEMONS ADD/REMOVE -----------------------------------------------------
-_daemon ()
-{
-# TODO: make work for systemd
-# add|enable|change disable remove
-#
-# usage:
-# daemon add @ntp
-# daemon disable network
-# daemon remove hwclock
-# daemon remove hwclock network
-#
-! [ -e "/etc/rc.conf" ] && return 0
-ACTION="$1"; shift; DAEMON_LIST="$@"
-for DAEMON_ITEM in $DAEMON_LIST; do
-DAEMON_BASE=$(echo "$DAEMON_ITEM" | sed "s/[!@]*\(.*\)/\1/") # strip any leading characters
-case $ACTION in # assign DAEMON_NEW based on action
-    add|change|enable|on) DAEMON_NEW="$DAEMON_ITEM" ;;
-    disable|off) DAEMON_NEW="!${DAEMON_BASE}" ;; # normalize in case user passes !daemon format as argument
-    remove|delete) DAEMON_NEW="" ;;
-esac
-echo -e "\nTEST: $ACTION $DAEMON_ITEM -> '$DAEMON_NEW'"
-cat /etc/rc.conf | grep DAEMONS
-# process /etc/rc.conf
-if ! egrep -q "^DAEMONS\s*=.*[!@]?${DAEMON_BASE}" /etc/rc.conf; then # no daemon present
-    [ $ACTION != remove ] && sed -i "/^\s*DAEMONS/ s_)_ ${DAEMON_NEW})_" /etc/rc.conf
-else
-    sed -i "/^\s*DAEMONS/ s_[!@]*${DAEMON_BASE}_${DAEMON_NEW}_" /etc/rc.conf
-fi
-# housekeeping: clean up extraneous spaces
-sed -i "/^\s*DAEMONS/ \
-s/  / /g
-s/( /(/g
-s/ )/)/g" /etc/rc.conf
-done
-}
-# convenience functions
-_daemon_add () { _daemon add $@ ; }
-_daemon_enable () { _daemon enable $@ ; }
-_daemon_change () { _daemon change $@ ; }
-_daemon_on () { _daemon on $@ ; }
-_daemon_disable () { _daemon disable $@ ; }
-_daemon_off () { _daemon off $@ ; }
-_daemon_remove () { _daemon remove $@ ; }
-_daemon_delete () { _daemon delete $@ ; }
 
 # ANYKEY -----------------------------------------------------------------
 _anykey ()

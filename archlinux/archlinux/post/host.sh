@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
+# HOST
 
-[ -z $HOSTNAME ] && HOSTNAME=stewie
 echo ${HOSTNAME} > /etc/hostname;
 sed -i "s/localhost\.localdomain/${HOSTNAME}/g" /etc/hosts;
+
