@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-_installpkg dosfstools
-
-
 BOOT_DRIVE=$INSTALL_DRIVE
 AMOUNT_SWAP=1
 PARTITION_BIOS_GPT=1
