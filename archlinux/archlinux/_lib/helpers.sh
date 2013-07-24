@@ -135,7 +135,7 @@ _installaur ()
 # Usage:
 # _installpkg pkgname1 [pkgname2] [pkgname3]
 #
-_installpkg base-devel
+
 _defaultvalue AURHELPER packer
 if command -v $AURHELPER >/dev/null 2>&1; then
     $AURHELPER -S --noconfirm "$@";

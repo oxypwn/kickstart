@@ -4,7 +4,7 @@
 # ------------------------------------------------------------------------
 # blocks/lib/core.sh - main installer execution sequence
 
-# PREFLIGHT --------------------------------------------------------------
+# PREFLIGHT
 
 # buckle up
 #set -o errexit
@@ -18,13 +18,13 @@ MNT=/mnt; TMP=/tmp/archblocks; POSTSCRIPT="/postinstall.sh"
 # get chroot status
 [ -e "${POSTSCRIPT}" ] && INCHROOT=true || INCHROOT=false
 
-# DEFAULT REPOSITORY URL -------------------------------------------------
+# DEFAULT REPOSITORY URL
 # (probably not useful here if initialization script has already used it,
 # but retained here for reference)
 
 _defaultvalue REMOTE http://raw.github.com/pandrew/kickstart/master/archlinux
 
-# DEFAULT CONFIG VALUES --------------------------------------------------
+# DEFAULT CONFIG VALUES
 
 _defaultvalue HOSTNAME archlinux
 _defaultvalue USERSHELL /usr/bin/bash
@@ -38,16 +38,16 @@ _defaultvalue MODULES ""
 # The HOOK="encrypt" might give warnings upon boot when you dont have any encrypted filesystem to decrypt.
 _defaultvalue HOOKS "base udev autodetect block filesystems shutdown keyboard fsck keymap"
 _defaultvalue KERNEL_PARAMS # "quiet" # set/used in FILESYSTEM,INIT,BOOTLOADER blocks
-_defaultvalue INSTALL_DRIVE /dev/sda # this overrides any default value set in FILESYSTEM block
+_defaultvalue INSTALL_DRIVE /dev/sda
 _defaultvalue INIT_MODE systemd # systemd vs anything else. Blocks/helpers can check this to confirm systemd use
 
 #TODO: REMOVE THIS #_defaultvalue PRIMARY_BOOTLOADER UEFI # UEFI or BIOS (case insensitive)
 
-# CONFIG VALUES WHICH REMAIN UNDEFAULTED ---------------------------------
+# CONFIG VALUES WHICH REMAIN UNDEFAULTED
 # for reference - these remain unset if not already declared
 # USERNAME, SYSTEMTYPE
 
-# BLOCKS DEFAULTS --------------------------------------------------------
+# BLOCKS DEFAULTS 
 
 _defaultvalue INSTALL pre/base
 _defaultvalue HARDWARE ""
@@ -74,7 +74,7 @@ _defaultvalue APPSETS ""
 _defaultvalue PACKAGES ""
 _defaultvalue AURPACKAGES ""
 
-# ARCH PREP & SYSTEM INSTALL (PRE CHROOT) --------------------------------
+# ARCH PREP & SYSTEM INSTALL (PRE CHROOT)
 if ! $INCHROOT; then
 _load_efi_modules || true       # ATTEMPT TO LOAD EFIVARS, EVEN IF NOT USING EFI (REQUIRED)
 _loadblock "${FILESYSTEM}"      # LOAD FILESYSTEM (FUNCTIONS AND VARIABLE DECLARATION ONLY)
@@ -86,29 +86,29 @@ _filesystem_post_baseinstall    # WRITE FSTAB/CRYPTTAB AND ANY OTHER POST INTALL
 _chroot_postscript              # CHROOT AND CONTINUE EXECUTION
 fi
 
-# ARCH CONFIG (POST CHROOT) ----------------------------------------------
+# ARCH CONFIG (POST CHROOT)
 if $INCHROOT; then
 umount /tmp || _anykey "didn't unmount tmp..."
-_filesystem_post_chroot         # FILESYSTEM POST-CHROOT CONFIGURATION
-_loadblock "${LOCALE}"		 # SET LOCALE
-_loadblock "${TIME}"            # TIME
-_loadblock "${HOST}"            # HOSTNAME
-_loadblock "${NETWORK}"         # NETWORKING
-_loadblock "${AUDIO}"           # AUDIO
-#_loadblock "${VIDEO}"           # VIDEO
-#_loadblock "${SOUND}"           # SOUND
-_loadblock "${POWER}"           # POWER
-#_loadblock "${SENSORS}"         # SENSORS
-#_loadblock "${KERNEL}"         # KERNEL
-_loadblock "${RAMDISK}"         # RAMDISK
-_loadblock "${BLACKLIST}"	# BLACKLIST
-_loadblock "${BOOTLOADER}"      # BOOTLOADER
-_loadblock "${XORG}"            # XORG
-#_loadblock "${DESKTOP}"         # DESKTOP/WM/ETC
-#_loadblock "${HARDWARE}"        # COMMON POST INSTALL ROUTINES
-_loadblock "${APPSETS}"         # COMMON APPLICATION/UTILITY SETS
-_installpkg ${PACKAGES}
-_installaur ${AURPACKAGES}
+_filesystem_post_chroot
+_loadblock "${LOCALE}"
+_loadblock "${TIME}"
+_loadblock "${HOST}"
+_loadblock "${NETWORK}"
+_loadblock "${AUDIO}"
+_loadblock "${VIDEO}"
+_loadblock "${SOUND}"
+_loadblock "${POWER}"
+_loadblock "${SENSORS}"
+#_loadblock "${KERNEL}"
+_loadblock "${RAMDISK}"
+_loadblock "${BLACKLIST}"
+_loadblock "${BOOTLOADER}"
+_loadblock "${XORG}"
+#_loadblock "${DESKTOP}"
+#_loadblock "${HARDWARE}" 
+_loadblock "${APPSETS} appsets/packages appsets/aurpackages"
+#_loadblock post/packages
+#_loadblock post/aurpackages
 _loadblock "${SUDO}"
 _loadblock "${USERS}"
 _loadblock "${MR_BOOTSTRAP+post/mr_bootstrap}"
