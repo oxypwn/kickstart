@@ -51,7 +51,7 @@ _defaultvalue INIT_MODE systemd # systemd vs anything else. Blocks/helpers can c
 
 _defaultvalue INSTALL pre/base
 _defaultvalue HARDWARE ""
-_defaultvalue TIME post/time_ntp_utc # or, e.g. time_ntp_localtime
+_defaultvalue TIME post/time_ntp_utc
 _defaultvalue LOCALE post/locale
 _defaultvalue SUDO post/sudo
 _defaultvalue HOST post/host
@@ -61,9 +61,6 @@ _defaultvalue BOOTLOADER pre/grub
 _defaultvalue NETWORK post/wired_wireless_default
 _defaultvalue BLACKLIST post/blacklist
 _defaultvalue FSTAB pre/fstab
-#_defaultvalue INIT init/systemd_pure
-#_defaultvalue INIT=init/systemd_coexist
-#_defaultvalue INIT=init/sysvinit_default
 _defaultvalue XORG ""
 _defaultvalue AUDIO ""
 _defaultvalue VIDEO ""
@@ -92,9 +89,8 @@ fi
 # ARCH CONFIG (POST CHROOT) ----------------------------------------------
 if $INCHROOT; then
 umount /tmp || _anykey "didn't unmount tmp..."
-#pacman -Sy
 _filesystem_post_chroot         # FILESYSTEM POST-CHROOT CONFIGURATION
-_loadblock "${LOCALE}"       # SET LOCALE
+_loadblock "${LOCALE}"		 # SET LOCALE
 _loadblock "${TIME}"            # TIME
 _loadblock "${HOST}"            # HOSTNAME
 _loadblock "${NETWORK}"         # NETWORKING

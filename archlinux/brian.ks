@@ -24,7 +24,7 @@ APPSETS="appsets/default"
 # if you don't want to create a new block, you can specify extra packages
 # from official repos or AUR here (simple space separated list of packages)
 PACKAGES=""
-AURPACKAGES="mr git-annex-bin dropbox"
+AURPACKAGES=""
 
 
 
