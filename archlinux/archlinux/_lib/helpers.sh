@@ -137,7 +137,7 @@ _installaur ()
 #
 
 AURPACKAGES="$@"
-while [ ! -z $AURPACKAGES ]; do
+if [ ! -z $AURPACKAGES ]; then
 _defaultvalue AURHELPER packer
 _defaultvalue PKGNAME packer-git
     if command -v $AURHELPER >/dev/null 2>&1; then
@@ -152,14 +152,14 @@ _defaultvalue PKGNAME packer-git
         makepkg --asroot -si --noconfirm; cd "$orig"; rm -rf $build_dir;
         $AURHELPER -S --noconfirm "$@";
     fi;
-done
+fi
 }
 
 _mrbootstrap() {
-while [ ! -z $MR_BOOTSTRAP ]; do
+if [ ! -z $MR_BOOTSTRAP ]; then
     _installaur mr
     su $USERNAME -l -c "export AUTH_USERNAME=\"$_auth_username\"; export AUTH_PASSPHRASE=\"$_auth_passphrase\"; mr --trust-all bootstrap \"${MR_BOOTSTRAP}\""		
-done
+fi
 }
 
 
@@ -367,7 +367,7 @@ while getopts i: option
 do
         case "${option}"
         in
-                i) AURPACKAGES=$OPTARG; _installaur ;;
+                i) _installaur $OPTARG ;;
                 \?) usage
                     exit 1;;
         esac
