@@ -135,20 +135,23 @@ _installaur ()
 # Usage:
 # _installpkg pkgname1 [pkgname2] [pkgname3]
 #
-_defaultvalue AURHELPER packer
-_defaultvalue PKGNAME packer-git
-if command -v $AURHELPER >/dev/null 2>&1; then
-    $AURHELPER -S --noconfirm "$@";
-else
-    pkg=$PKGNAME; orig="$(pwd)"; build_dir=/tmp/build/${pkg}; mkdir -p $build_dir; cd $build_dir;
-    for req in wget git jshon; do
-        command -v $req >/dev/null 2>&1 || _installpkg base-devel $req;
-    done
-    wget "https://aur.archlinux.org/packages/${pkg:0:2}/${pkg}/${pkg}.tar.gz";
-    tar -xzvf ${pkg}.tar.gz; cd ${pkg};
-    makepkg --asroot -si --noconfirm; cd "$orig"; rm -rf $build_dir;
-    $AURHELPER -S --noconfirm "$@";
-fi;
+
+while [ ! -z $AURPACKAGES ]; do
+ _defaultvalue AURHELPER packer
+ _defaultvalue PKGNAME packer-git
+    if command -v $AURHELPER >/dev/null 2>&1; then
+        $AURHELPER -S --noconfirm "$@";
+    else
+        pkg=$PKGNAME; orig="$(pwd)"; build_dir=/tmp/build/${pkg}; mkdir -p $build_dir; cd $build_dir;
+        for req in wget git jshon; do
+            command -v $req >/dev/null 2>&1 || _installpkg base-devel $req;
+        done
+        wget "https://aur.archlinux.org/packages/${pkg:0:2}/${pkg}/${pkg}.tar.gz";
+        tar -xzvf ${pkg}.tar.gz; cd ${pkg};
+        makepkg --asroot -si --noconfirm; cd "$orig"; rm -rf $build_dir;
+        $AURHELPER -S --noconfirm "$@";
+    fi;
+done
 }
 
 # CHROOT POSTSCRIPT ------------------------------------------------------
@@ -350,3 +353,14 @@ _filesystem_post_chroot () { :; }
 
 
 #TODO: should add a first-run (first call to function for each phase) check and initialization phase
+
+while getopts i: option
+do
+        case "${option}"
+        in
+                i) AURPACKAGES=$OPTARG; _installaur ;;
+                \?) usage
+                    exit 1;;
+        esac
+done
+
