@@ -221,6 +221,7 @@ echo "EXECUTING BLOCK \"$_block\""
         read _block
 	
      done
+
 done
 } 
 
@@ -253,10 +254,6 @@ for _block in $@; do
 		while [ "$?" -gt 0 ]; do
         		_anykey "EXECUTION OF BLOCK \"$_block\" EXPERIENCED ERRORS"
         		read _block;
-				#if [ $_block == "shell" ]; then
-				#	echo "Dropping to shell...";
-				#	bash;
-			#	fi
 			_preloadblock;
 			[ -n "$_loaded_block" ] && eval "${_loaded_block}";
     	 	done

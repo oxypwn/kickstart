@@ -106,9 +106,9 @@ _loadblock "${BOOTLOADER}"
 _loadblock "${XORG}"
 #_loadblock "${DESKTOP}"
 #_loadblock "${HARDWARE}" 
-_loadblock "${APPSETS} appsets/packages appsets/aurpackages"
-#_loadblock post/packages
-#_loadblock post/aurpackages
+_loadblock "${APPSETS}"
+_installpkg "${PACKAGES}"
+_installaur "${AURPACKAGES}"
 _loadblock "${SUDO}"
 _loadblock "${USERS}"
 _loadblock "${MR_BOOTSTRAP+post/mr_bootstrap}"
