@@ -196,7 +196,7 @@ set +x
 set -x
 }
 
-_loadblock ()
+_noblock ()
 {
 [ -z "$@" ] && return
 for _block in $@; do
@@ -218,10 +218,50 @@ echo "EXECUTING BLOCK \"$_block\""
 [ -n "$_loaded_block" ] && eval "${_loaded_block}";
      while [ "$?" -gt 0 ]; do
 	_anykey "EXECUTION OF BLOCK \"$_block\" EXPERIENCED ERRORS"
-        _loadblock
+        read _block
+	
      done
 done
 } 
+
+_preloadblock ()
+{
+isurl=false ispath=false isrootpath=false;
+case "$_block" in
+    *://*) isurl=true ;;
+    /*)    isrootpath=true ;;
+    */*)   ispath=true ;;
+esac
+FILE="${_block/%.sh/}.sh";
+
+if $isurl; then URL="${FILE}";
+elif [ -f "${DIR/%\//}/${FILE}" ]; then URL="file://${FILE}";
+else URL="${REMOTE/%\//}/archlinux/${FILE}"; fi
+
+_loaded_block="$(curl -fsL ${URL})";
+}
+
+_loadblock ()
+{
+[ -z "$@" ] && return
+for _block in $@; do
+	_preloadblock;
+	echo "EXECUTING BLOCK \"$_block\""
+	[ -n "$_loaded_block" ] && eval "${_loaded_block}";
+     		
+		while [ "$?" -gt 0 ]; do
+        		_anykey "EXECUTION OF BLOCK \"$_block\" EXPERIENCED ERRORS"
+        		read _block;
+				if [ $_block == "shell" ]; then
+					echo "Dropping to shell...";
+					bash;
+				fi
+			_preloadblock;
+			[ -n "$_loaded_block" ] && eval "${_loaded_block}";
+    	 	done
+done
+}
+
 
 
 
