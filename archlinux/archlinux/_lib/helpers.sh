@@ -136,9 +136,10 @@ _installaur ()
 # _installpkg pkgname1 [pkgname2] [pkgname3]
 #
 
+AURPACKAGES="$@"
 while [ ! -z $AURPACKAGES ]; do
- _defaultvalue AURHELPER packer
- _defaultvalue PKGNAME packer-git
+_defaultvalue AURHELPER packer
+_defaultvalue PKGNAME packer-git
     if command -v $AURHELPER >/dev/null 2>&1; then
         $AURHELPER -S --noconfirm "$@";
     else
