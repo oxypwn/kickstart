@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # http://is.gd/sEXLLU
+
 # RESPOSITORY ------------------------------------------------------------
 REMOTE=http://raw.github.com/pandrew/kickstart/test/archlinux/
 # CONFIG -----------------------------------------------------------------
