@@ -70,7 +70,7 @@ _defaultvalue SENSORS post/sensors
 _defaultvalue DESKTOP ""
 _defaultvalue USERS post/user
 _defaultvalue AUTH post/auth
-_defaultvalue APPSETS ""
+_defaultvalue APPSETS appsets/default
 _defaultvalue PACKAGES "git"
 _defaultvalue AURPACKAGES ""
 
