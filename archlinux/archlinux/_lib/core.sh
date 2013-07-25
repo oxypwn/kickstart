@@ -71,7 +71,7 @@ _defaultvalue DESKTOP ""
 _defaultvalue USERS post/user
 _defaultvalue AUTH post/auth
 _defaultvalue APPSETS ""
-_defaultvalue PACKAGES ""
+_defaultvalue PACKAGES "git"
 _defaultvalue AURPACKAGES ""
 
 # ARCH PREP & SYSTEM INSTALL (PRE CHROOT)
