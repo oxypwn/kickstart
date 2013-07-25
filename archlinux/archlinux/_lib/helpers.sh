@@ -191,8 +191,9 @@ elif [ -f "${DIR/%\//}/${FILE}" ]; then URL="file://${FILE}";
 else URL="${REMOTE/%\//}/archlinux/${FILE}"; fi
 
 _loaded_block="$(curl -fsL ${URL})";
-
+set +x
 [ -n "$_loaded_block" ] && eval "${_loaded_block}";
+set -x
 }
 
 _loadblock ()
@@ -206,6 +207,7 @@ case "$_block" in
     */*)   ispath=true ;;
 esac
 FILE="${_block/%.sh/}.sh";
+
 if $isurl; then URL="${FILE}";
 elif [ -f "${DIR/%\//}/${FILE}" ]; then URL="file://${FILE}";
 else URL="${REMOTE/%\//}/archlinux/${FILE}"; fi
