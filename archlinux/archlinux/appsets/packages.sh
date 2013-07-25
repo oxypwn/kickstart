@@ -2,4 +2,4 @@
 #
 # PACKAGES
 
-_installpkg ${PACKAGES}
+_installpkg $PACKAGES
