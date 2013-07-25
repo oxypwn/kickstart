@@ -19,15 +19,12 @@ MNT=/mnt; TMP=/tmp/archblocks; POSTSCRIPT="/postinstall.sh"
 [ -e "${POSTSCRIPT}" ] && INCHROOT=true || INCHROOT=false
 
 # DEFAULT REPOSITORY URL
-# (probably not useful here if initialization script has already used it,
-# but retained here for reference)
-
 _defaultvalue REMOTE http://raw.github.com/pandrew/kickstart/master/archlinux
 
 # DEFAULT CONFIG VALUES
-
+_defaultvalue USERNAME user
 _defaultvalue HOSTNAME archlinux
-_defaultvalue USERSHELL /usr/bin/bash
+_defaultvalue USERS_SHELL bash
 _defaultvalue ADDTOGROUPS "users"
 _defaultvalue FONT ter-116n
 _defaultvalue FONT_MAP 8859-1
@@ -35,26 +32,17 @@ _defaultvalue LANGUAGE en_US.UTF-8
 _defaultvalue KEYMAP us
 _defaultvalue TIMEZONE Europe/Stockholm
 _defaultvalue MODULES ""
-# The HOOK="encrypt" might give warnings upon boot when you dont have any encrypted filesystem to decrypt.
 _defaultvalue HOOKS "base udev autodetect block filesystems shutdown keyboard fsck keymap"
 _defaultvalue KERNEL_PARAMS # "quiet" # set/used in FILESYSTEM,INIT,BOOTLOADER blocks
 _defaultvalue INSTALL_DRIVE /dev/sda
 _defaultvalue INIT_MODE systemd # systemd vs anything else. Blocks/helpers can check this to confirm systemd use
-
-#TODO: REMOVE THIS #_defaultvalue PRIMARY_BOOTLOADER UEFI # UEFI or BIOS (case insensitive)
-
-# CONFIG VALUES WHICH REMAIN UNDEFAULTED
-# for reference - these remain unset if not already declared
-# USERNAME, SYSTEMTYPE
-
-# BLOCKS DEFAULTS 
-
-_defaultvalue INSTALL pre/base
+_defaultvalue PACSTRAP pre/pacstrap
 _defaultvalue HARDWARE ""
 _defaultvalue TIME post/time_ntp_utc
 _defaultvalue LOCALE post/locale
 _defaultvalue SUDO post/sudo
 _defaultvalue HOST post/host
+_defaultvalue SERVICES services/ssh
 _defaultvalue FILESYSTEM pre/filesystem
 _defaultvalue RAMDISK post/ramdisk_default
 _defaultvalue BOOTLOADER pre/grub
@@ -81,7 +69,7 @@ _loadblock "${FILESYSTEM}"      # LOAD FILESYSTEM (FUNCTIONS AND VARIABLE DECLAR
 _filesystem_pre_baseinstall     # FILESYSTEM PARTITION FORMAT MOUNT
 _loadblock "${FSTAB}"     # LOAD FSTAB
 _install_mirrorlist		# INSTALL MIRRORLIST TO LIVE AND CHROOT ENVIRONMENT
-_loadblock "${INSTALL}"         # INSTALL ARCH
+_loadblock "${PACSTRAP}"         # PACSTRAP
 _filesystem_post_baseinstall    # WRITE FSTAB/CRYPTTAB AND ANY OTHER POST INTALL FILESYSTEM CONFIG
 _chroot_postscript              # CHROOT AND CONTINUE EXECUTION
 fi
@@ -110,10 +98,10 @@ _loadblock "${SUDO}"
 _loadblock "${APPSETS} appsets/default"
 _installpkg "${PACKAGES}"
 _installaur "${AURPACKAGES}"
+_loadblock "${SERVICES}"
 _loadblock "${USERS}"
 _mrbootstrap "${MR_BOOTSTRAP}"
 _loadblock "${AUTH}"
 _cleanup
 fi
 
-eject && reboot

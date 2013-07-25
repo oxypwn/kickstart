@@ -333,6 +333,7 @@ _cleanup ()
 {
 # Remove files We dont need in the system.
 rm $POSTSCRIPT
+eject && reboot
 }
 
 
