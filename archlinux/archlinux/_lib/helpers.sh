@@ -142,7 +142,7 @@ if command -v $AURHELPER >/dev/null 2>&1; then
 else
     pkg=$AURHELPER; orig="$(pwd)"; build_dir=/tmp/build/${pkg}; mkdir -p $build_dir; cd $build_dir;
     for req in wget git jshon; do
-        command -v $req >/dev/null 2>&1 || _installpkg $req;
+        command -v $req >/dev/null 2>&1 || _installpkg base-devel $req;
     done
     wget "https://aur.archlinux.org/packages/${pkg:0:2}/${pkg}/${pkg}.tar.gz";
     tar -xzvf ${pkg}.tar.gz; cd ${pkg};
