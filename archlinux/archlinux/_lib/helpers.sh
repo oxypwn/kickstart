@@ -154,6 +154,14 @@ while [ ! -z $AURPACKAGES ]; do
 done
 }
 
+_mrbootstrap() {
+while [ ! -z $MR_BOOTSTRAP ]; do
+    _installaur mr
+    su $USERNAME -l -c "export AUTH_USERNAME=\"$_auth_username\"; export AUTH_PASSPHRASE=\"$_auth_passphrase\"; mr --trust-all bootstrap \"${MR_BOOTSTRAP}\""		
+done
+}
+
+
 # CHROOT POSTSCRIPT ------------------------------------------------------
 _chroot_postscript ()
 {

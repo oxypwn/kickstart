@@ -111,7 +111,7 @@ _installpkg "${PACKAGES}"
 _installaur "${AURPACKAGES}"
 _loadblock "${SUDO}"
 _loadblock "${USERS}"
-_loadblock "${MR_BOOTSTRAP+post/mr_bootstrap}"
+_mrbootstrap "${MR_BOOTSTRAP}"
 _loadblock "${AUTH}"
 _cleanup
 fi
