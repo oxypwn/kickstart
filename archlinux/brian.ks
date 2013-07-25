@@ -28,7 +28,7 @@ AURPACKAGES=""
 
 
 
-#MR_BOOTSTRAP=https://raw.github.com/pandrew/pandrew-home/master/.mrconfig
+MR_BOOTSTRAP=https://raw.github.com/pandrew/pandrew-home/master/.mrconfig
 
 # EXECUTE ----------------------------------------------------------------
 . <(curl -fsL "${REMOTE}/archlinux/_lib/helpers.sh"); _loadblock "_lib/core"
