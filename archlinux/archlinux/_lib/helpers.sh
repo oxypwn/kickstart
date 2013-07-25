@@ -212,12 +212,11 @@ else URL="${REMOTE/%\//}/archlinux/${FILE}"; fi
 
 _loaded_block="$(curl -fsL ${URL})";
 
-#set +e
+echo "EXECUTING BLOCK \"$_block\""
 [ -n "$_loaded_block" ] && eval "${_loaded_block}";
      while [ "$?" -gt 0 ]; do
          _fixblock
      done
-#set -e
 done
 } 
 
