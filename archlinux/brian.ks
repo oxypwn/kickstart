@@ -24,11 +24,11 @@ APPSETS=""
 # if you don't want to create a new block, you can specify extra packages
 # from official repos or AUR here (simple space separated list of packages)
 #PACKAGES=""
-AURPACKAGES=""
+AURPACKAGES="git-annex"
 
 
 
-MR_BOOTSTRAP=https://raw.github.com/pandrew/pandrew-home/master/.mrconfig
+#MR_BOOTSTRAP=https://raw.github.com/pandrew/pandrew-home/master/.mrconfig
 
 # EXECUTE ----------------------------------------------------------------
 . <(curl -fsL "${REMOTE}/archlinux/_lib/helpers.sh"); _loadblock "_lib/core"
