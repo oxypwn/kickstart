@@ -231,6 +231,7 @@ case "$_block" in
     *://*) isurl=true ;;
     /*)    isrootpath=true ;;
     */*)   ispath=true ;;
+    shell) echo "Dropping to shell..."; bash ;;  
 esac
 FILE="${_block/%.sh/}.sh";
 
@@ -252,10 +253,10 @@ for _block in $@; do
 		while [ "$?" -gt 0 ]; do
         		_anykey "EXECUTION OF BLOCK \"$_block\" EXPERIENCED ERRORS"
         		read _block;
-				if [ $_block == "shell" ]; then
-					echo "Dropping to shell...";
-					bash;
-				fi
+				#if [ $_block == "shell" ]; then
+				#	echo "Dropping to shell...";
+				#	bash;
+			#	fi
 			_preloadblock;
 			[ -n "$_loaded_block" ] && eval "${_loaded_block}";
     	 	done
