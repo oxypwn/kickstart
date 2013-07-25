@@ -1,4 +1,4 @@
-Kickstart -- Test branch
+Kickstart
 =========
 
 Kickstart files and helpers for dev and stable environments.
