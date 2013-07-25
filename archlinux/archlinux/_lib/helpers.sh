@@ -217,7 +217,8 @@ _loaded_block="$(curl -fsL ${URL})";
 echo "EXECUTING BLOCK \"$_block\""
 [ -n "$_loaded_block" ] && eval "${_loaded_block}";
      while [ "$?" -gt 0 ]; do
-         _fixblock
+	_anykey "EXECUTION OF BLOCK \"$_block\" EXPERIENCED ERRORS"
+        _loadblock
      done
 done
 } 
