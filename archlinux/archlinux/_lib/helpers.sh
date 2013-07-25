@@ -135,12 +135,12 @@ _installaur ()
 # Usage:
 # _installpkg pkgname1 [pkgname2] [pkgname3]
 #
-
-_defaultvalue AURHELPER packer-git
+_defaultvalue AURHELPER packer
+_defaultvalue PKGNAME packer-git
 if command -v $AURHELPER >/dev/null 2>&1; then
     $AURHELPER -S --noconfirm "$@";
 else
-    pkg=$AURHELPER; orig="$(pwd)"; build_dir=/tmp/build/${pkg}; mkdir -p $build_dir; cd $build_dir;
+    pkg=$PKGNAME; orig="$(pwd)"; build_dir=/tmp/build/${pkg}; mkdir -p $build_dir; cd $build_dir;
     for req in wget git jshon; do
         command -v $req >/dev/null 2>&1 || _installpkg base-devel $req;
     done
