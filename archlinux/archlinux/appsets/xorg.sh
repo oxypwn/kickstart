@@ -2,10 +2,9 @@
 # Network
 
 if [ -z $REMOTE ]; then
-    REMOTE=http://raw.github.com/pandrew/kickstart/test/archlinux/
-    . <(curl -fsL "${REMOTE}/archlinux/_lib/helpers.sh")
+    REMOTE=http://raw.github.com/pandrew/kickstart/master/archlinux/
+    . <(curl -fsL "${REMOTE}/archlinux/_lib/functions.sh")
 fi
-
 
 _installpkg xorg xorg-server xorg-xinit xorg-utils xorg-server-utils xdotool xorg-xlsfonts xclip xorg-xclipboard xscreensaver
 _installpkg firefox chromium feh fontforge scrot simple-scan unclutter mplayer gvfs gvfs-smb udevil

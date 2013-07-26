@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # http://is.gd/sEXLLU
 
-REMOTE=http://raw.github.com/pandrew/kickstart/test/archlinux/
 HOSTNAME=brian
 USERNAME=pandrew
 GROUP="users"
@@ -23,6 +22,7 @@ AURPACKAGES=""
 
 #MR_BOOTSTRAP=https://raw.github.com/pandrew/pandrew-home/master/.mrconfig
 
-# Source functions and run core
-. <(curl -fsL "${REMOTE}/archlinux/_lib/helpers.sh"); _loadblock "_lib/core"
+# Set remote location to run from, source functions and run install
+REMOTE=https://raw.github.com/pandrew/kickstart/master/archlinux/
+. <(curl -fsL "${REMOTE}/archlinux/_lib/functions.sh"); _loadblock "_lib/install"
 

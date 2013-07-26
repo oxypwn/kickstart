@@ -2,10 +2,8 @@
 # Office
 
 if [ -z $REMOTE ]; then
-    REMOTE=http://raw.github.com/pandrew/kickstart/test/archlinux/
-    . <(curl -fsL "${REMOTE}/archlinux/_lib/helpers.sh")
+    REMOTE=https://raw.github.com/pandrew/kickstart/master/archlinux/
+    . <(curl -fsL "${REMOTE}/archlinux/_lib/functions.sh")
 fi
-
-
 
 _installpkg libreoffice-en-US libreoffice 
