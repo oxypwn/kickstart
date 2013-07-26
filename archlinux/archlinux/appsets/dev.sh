@@ -5,4 +5,4 @@ if [ -z $REMOTE ]; then
     . <(curl -fsL "${REMOTE}/archlinux/_lib/helpers.sh")
 fi
 
-_installpkg vim ruby golang
+_installpkg vim ruby go
