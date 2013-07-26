@@ -1,3 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-_installpkg vim git ruby gedit
+if [ -z $REMOTE ]; then
+    REMOTE=http://raw.github.com/pandrew/kickstart/test/archlinux/
+    . <(curl -fsL "${REMOTE}/archlinux/_lib/helpers.sh")
+fi
+
+_installpkg vim ruby golang
