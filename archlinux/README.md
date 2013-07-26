@@ -2,7 +2,22 @@ The followiing is a project to make altercation/archblocks totally unattended.
 
 Config variables:
 REMOTE
+HOSTNAME
+USERNAME
+GROUP
+ADDTOGROUPS
 USERS_SHELL
+FONT
+FONT_MAP
+LANGUAGE
+KEYMAP
+TIMEZONE
+MODULES
+HOOKS
+AUDIO
+APPSETS
+INSTALL_DRIVE
 PACKAGES
 AURPACKAGES
 MR_BOOTSTRAP
+

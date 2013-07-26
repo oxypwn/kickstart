@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Games
+# Reader
 
 if [ -z $REMOTE ]; then
     REMOTE=http://raw.github.com/pandrew/kickstart/test/archlinux/
@@ -7,7 +7,5 @@ if [ -z $REMOTE ]; then
 fi
 
 
-_installpkg warsow snes9x
-_installpkg jre7-openjdk
-_installaur minecraft
-_installpkg steam
+
+_installpkg newsbeuter zathura cups zathura-pdf-mupdf unrar
