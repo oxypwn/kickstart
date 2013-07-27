@@ -39,6 +39,6 @@ _defaultvalue DESKTOP ""
 _defaultvalue USERS post/user
 _defaultvalue AUTH post/auth
 _defaultvalue APPSETS appsets/default
-_defaultvalue PACKAGES "git"
+_defaultvalue PACKAGES git
 _defaultvalue AURPACKAGES ""
 
