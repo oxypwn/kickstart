@@ -1,28 +1,26 @@
-The followiing is a project to make altercation/archblocks totally unattended.
 
-# possible fix for occasional blank screen on resume? https://wiki.archlinux.org/index.php/Pm-utils#Blank_screen_issue
 
 
 Config variables:
 
-    REMOTE
-    HOSTNAME
-    USERNAME
-    GROUP
-    ADDTOGROUPS
-    USERS_SHELL
-    FONT
-    FONT_MAP
-    LANGUAGE
-    KEYMAP
-    TIMEZONE
-    MODULES
-    HOOKS
-    AUDIO
-    APPSETS
-    IPADRESS Example: IPADRESS=192.168.1.18/24
-    INSTALL_DRIVE
-    PACKAGES
-    AURPACKAGES
+    REMOTE		Example: REMOTE=https://raw.github.com/pandrew/kickstart/master/archlinux/
+    HOSTNAME		Example: HOSTNAME="archlinux"
+    USERNAME		Example: USERNAME="pandrew"
+    GROUP		Example: GROUP="users"
+    ADDTOGROUPS		Example: ADDTOGROUPS="users,sudo"
+    USERS_SHELL		Example: USERS_SHELL="zsh"
+    FONT		Example: FONT=ter-116n
+    FONT_MAP		Example: FONT_MAP=8859-1
+    LANGUAGE		Example: LANGUAGE=en_US.UTF-8
+    KEYMAP		Example: KEYMAP=svoraka5
+    TIMEZONE		Example: TIMEZONE="Europe/Stockholm"
+    MODULES		Example: MODULES="dm_mod dm_crypt aes_x86_64"
+    HOOKS		Example: HOOKS="base udev"
+    AUDIO		Example: AUDIO="post/audio_alsa"
+    APPSETS		Example: APPSETS="appsets/virtual"
+    IPADRESS		Example: IPADRESS=192.168.1.18/24
+    INSTALL_DRIVE	Example: INSTALL_DRIVE="/dev/sda"
+    PACKAGES		Example: PACKAGES="git golang mutt"
+    AURPACKAGES		Example: AURPACKAGES="git-annex-bin"
     MR_BOOTSTRAP
 
