@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-_installpkg wireshark-gtk tshark flashplugin
+_installpkg wireshark-gtk wireshark-cli flashplugin

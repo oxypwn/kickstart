@@ -5,8 +5,7 @@
 # blocks/lib/helpers.sh - common helper functions
 
 # DEFAULTVALUE -----------------------------------------------------------
-_defaultvalue ()
-{
+_defaultvalue () {
 # Assign value to a variable in the install script only if unset.
 # Note that *empty* variables that have purposefully been set as empty
 # are not changed.
@@ -19,8 +18,7 @@ eval "${1}=\"${!1-${2}}\"";
 }
 
 # SETVALUE ---------------------------------------------------------------
-_setvalue ()
-{
+_setvalue () {
 # Assign a value to a "standard" bash format variable in a config file
 # or script. For example, given a file with path "path/to/file.conf"
 # with a variable defined like this:
@@ -36,8 +34,7 @@ sed -i "s+^#\?\(${valuename}\)=.*$+\1=${newvalue}+" "${filepath}";
 }
 
 # COMMENTOUTVALUE --------------------------------------------------------
-_commentoutvalue ()
-{
+_commentoutvalue () {
 # Comment out a value in "standard" bash format. For example, given a
 # file with a variable defined like this:
 #
@@ -56,8 +53,7 @@ sed -i "s/^\(${valuename}.*\)$/#\1/" "${filepath}";
 }
 
 # UNCOMMENTVALUE ---------------------------------------------------------
-_uncommentvalue ()
-{
+_uncommentvalue () {
 # Uncomment out a value in "standard" bash format. For example, given a
 # file with a commented out variable defined like this:
 #
@@ -76,8 +72,7 @@ sed -i "s/^#\(${valuename}.*\)$/\1/" "${filepath}";
 }
 
 # ADDTOLIST --------------------------------------------------------------
-_addtolistvar ()
-{
+_addtolistvar () {
 # Add to an existing list format variable (simple space delimited list)
 # such as VARNAME="item1 item2 item3".
 #
@@ -97,8 +92,7 @@ fi
 }
 
 # ANYKEY -----------------------------------------------------------------
-_anykey ()
-{
+_anykey () {
 # Provide an alert (with optional custom preliminary message) and pause.
 #
 # Usage:
@@ -109,8 +103,7 @@ echo -e "\n$@"; read -sn 1 -p "Any key to continue..."; echo;
 
 
 # INSTALLPKG -------------------------------------------------------------
-_installpkg ()
-{
+_installpkg () {
 # Install package(s) from official repositories, no confirmation needed.
 # Takes single or multiple package names as arguments.
 #
@@ -125,8 +118,7 @@ fi
 }
 
 # INSTALLAUR -------------------------------------------------------------
-_installaur ()
-{
+_installaur () {
 # Install package(s) from arch user repository, no confirmation needed.
 # Takes single or multiple package names as arguments.
 #
@@ -164,8 +156,7 @@ fi
 
 
 # CHROOT POSTSCRIPT ------------------------------------------------------
-_chroot_postscript ()
-{
+_chroot_postscript () {
 # handle interactively assigned install drive value
 echo -e "#!/bin/bash\nINSTALL_DRIVE=$INSTALL_DRIVE" > "${MNT}${POSTSCRIPT}";
 grep -v "^\s*INSTALL_DRIVE.*" "${0}" >> "${MNT}${POSTSCRIPT}";
@@ -175,70 +166,17 @@ chmod a+x "${MNT}${POSTSCRIPT}"; arch-chroot "${MNT}" "${POSTSCRIPT}";
 
 
 # POST INSTALL MESSAGES --------------------------------------------------
-_display_postinstall_messages ()
-{
+_display_postinstall_messages () {
 echo "\n\nInstallation complete; Reboot and then execute the post-reboot.sh script in the /root directory."
 echo "\n"
 [ -n "${POSTINSTALL_MSGS:-}" ] && echo "${POSTINSTALL_MSGS}"
 }
-_add_postinstall_messags ()
-{
+_add_postinstall_messags () {
 :
 }
 
-# LOAD BLOCK -------------------------------------------------------------
-_fixblock ()
-{
-_anykey "EXECUTION OF BLOCK \"$_block\" EXPERIENCED ERRORS"
-read _block
-isurl=false ispath=false isrootpath=false;
-case "$_block" in
-    *://*) isurl=true ;;
-    /*)    isrootpath=true ;;
-    */*)   ispath=true ;;
-esac
-FILE="${_block/%.sh/}.sh";
-if $isurl; then URL="${FILE}";
-elif [ -f "${DIR/%\//}/${FILE}" ]; then URL="file://${FILE}";
-else URL="${REMOTE/%\//}/archlinux/${FILE}"; fi
-
-_loaded_block="$(curl -fsL ${URL})";
-set +x
-[ -n "$_loaded_block" ] && eval "${_loaded_block}";
-set -x
-}
-
-_noblock ()
-{
-[ -z "$@" ] && return
-for _block in $@; do
-isurl=false ispath=false isrootpath=false;
-case "$_block" in
-    *://*) isurl=true ;;
-    /*)    isrootpath=true ;;
-    */*)   ispath=true ;;
-esac
-FILE="${_block/%.sh/}.sh";
-
-if $isurl; then URL="${FILE}";
-elif [ -f "${DIR/%\//}/${FILE}" ]; then URL="file://${FILE}";
-else URL="${REMOTE/%\//}/archlinux/${FILE}"; fi
-
-_loaded_block="$(curl -fsL ${URL})";
-
-echo "EXECUTING BLOCK \"$_block\""
-[ -n "$_loaded_block" ] && eval "${_loaded_block}";
-     while [ "$?" -gt 0 ]; do
-	_anykey "EXECUTION OF BLOCK \"$_block\" EXPERIENCED ERRORS"
-        read _block
-	
-     done
-
-done
-} 
-
-_preloadblock ()
-{
+ 
+_preloadblock () {
 isurl=false ispath=false isrootpath=false;
 case "$_block" in
     *://*) isurl=true ;;
@@ -255,8 +193,7 @@ else URL="${REMOTE/%\//}/archlinux/${FILE}"; fi
 _loaded_block="$(curl -fsL ${URL})";
 }
 
-_loadblock ()
-{
+_loadblock () {
 [ -z "$@" ] && return
 for _block in $@; do
 	_preloadblock;
@@ -272,12 +209,8 @@ for _block in $@; do
 done
 }
 
-
-
-
 # LOAD EFIVARS MODULE ----------------------------------------------------
-_load_efi_modules ()
-{
+_load_efi_modules () {
 # Load efivars (or confirm they've loaded already) and set EFI_MODE for
 # later use by bootloader.
 #
@@ -286,22 +219,19 @@ ls -l /sys/firmware/efi/vars/ &>/dev/null && return 0 || return 1;
 }
 
 # GET UUID ON DRIVE/PARTITION --------------------------------------------
-_get_uuid ()
-{
+_get_uuid () {
 # usage:
 # _get_uuid /dev/sda3
 MATCH="$(echo "$1" | sed "s_/_\\\/_g")"
 blkid -c /dev/null | sed -n "/${MATCH}/ s_.*UUID=\"\([^\"]*\).*_\1_p"
 }
 
-_install_mirrorlist ()
-{
+_install_mirrorlist () {
 curl -fsL "${REMOTE}/archlinux/pre/mirrorlist.txt" -o /etc/pacman.d/mirrorlist
 }
 
 # ENABLE REPOSITORIES FOR SPECIFIC LANGUAGES/FRAMEWORKS ------------------
-_enable_haskell_repos ()
-{
+_enable_haskell_repos () {
 
 # add repos to /etc/pacman.conf
 
@@ -329,11 +259,9 @@ pacman --noconfirm -Sy
 
 }
 
-_cleanup ()
-{
+_cleanup () {
 # Remove files We dont need in the system.
 rm $POSTSCRIPT
-
 }
 
 

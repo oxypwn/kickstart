@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #https://wiki.archlinux.org/index.php/Skype#Use_Skype_with_special_user
 _installpkg skype
 
