@@ -15,12 +15,12 @@ MODULES="dm_mod dm_crypt aes_x86_64 ext2 ext4 vfat intel_agp drm i915"
 HOOKS="base udev autodetect block keyboard consolefont encrypt filesystems fsck shutdown"
 AUDIO=post/audio_alsa
 APPSETS=""
-PACKAGES=""
+PACKAGES="git"
 AURPACKAGES=""
 
 
 
-#MR_BOOTSTRAP=https://raw.github.com/pandrew/pandrew-home/master/.mrconfig
+MR_BOOTSTRAP=https://raw.github.com/pandrew/pandrew-home/master/.mrconfig
 
 # Set remote location to run from, source functions and run install
 REMOTE=https://raw.github.com/pandrew/kickstart/master/archlinux/

@@ -5,5 +5,7 @@ if [ -z $REMOTE ]; then
     . <(curl -fsL "${REMOTE}/archlinux/_lib/functions.sh")
 fi
 
-_installpkg vim ruby go
-_installaur sublime-text
+_installaur lxc-docker-git
+# You will need to greate a new config for grub if
+# you dont already have a aufs friendly kernel installed.
+grub-mkconfig -o /boot/grub/grub.cfg

@@ -64,4 +64,4 @@ _loadblock "${AUTH}"
 _cleanup
 fi
 
-eject && reboot
+eject && reboot || reboot
