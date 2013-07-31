@@ -13,7 +13,6 @@ _installpkg iw rfkill
 _installpkg ifplugd
 _installpkg wpa_actiond
 
-
 mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.orig
 echo -e "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=network\nupdate_config=1" > /etc/wpa_supplicant/wpa_supplicant.conf
 
