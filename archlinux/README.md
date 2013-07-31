@@ -23,4 +23,8 @@ Config variables:
     PACKAGES		Example: PACKAGES="git golang mutt"
     AURPACKAGES		Example: AURPACKAGES="git-annex-bin"
     MR_BOOTSTRAP    Example: MR_BOOTSTRAP=https://raw.github.com/pandrew/pandrew-home/master/.mrconfig
+    NETWORK_PROFILE Example: NETWORK_PROFILE="post/enp2s0"
+    IPADDRESS       Example: IPADDRESS="192.168.2.67"
+    GATEWAY         Example: GATEWAY="192.168.2.1"
+    DNS             Example: DNS="192.168.2.1"
 

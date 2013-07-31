@@ -18,7 +18,10 @@ APPSETS=""
 PACKAGES="git"
 AURPACKAGES=""
 
-
+NETWORK_PROFILE="post/enp2s0-static"
+IPADDRESS="192.168.2.67"
+GATEWAY="192.168.2.1"
+DNS="192.168.2.1"
 
 MR_BOOTSTRAP=https://raw.github.com/pandrew/pandrew-home/master/.mrconfig
 

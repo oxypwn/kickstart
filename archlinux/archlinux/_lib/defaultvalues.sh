@@ -26,7 +26,7 @@ _defaultvalue SERVICES services/ssh
 _defaultvalue FILESYSTEM pre/filesystem
 _defaultvalue RAMDISK post/ramdisk_default
 _defaultvalue BOOTLOADER pre/grub
-_defaultvalue NETWORK post/wired_wireless_default
+_defaultvalue NETWORK post/network
 _defaultvalue BLACKLIST post/blacklist
 _defaultvalue FSTAB pre/fstab
 _defaultvalue XORG ""
