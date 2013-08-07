@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Docker
+# http://docs.docker.io/en/latest/installation/archlinux/
 
 if [ -z $REMOTE ]; then
     REMOTE=https://raw.github.com/pandrew/kickstart/master/archlinux/
