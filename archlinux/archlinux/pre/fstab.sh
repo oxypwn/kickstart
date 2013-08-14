@@ -1,5 +1,5 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
+set -x
 [ -z $MOUNT_PATH ] && MOUNT_PATH=/mnt
 mkdir -p $MOUNT_PATH/etc
 
@@ -11,7 +11,7 @@ BOOT_SYSTEM_PARTITION=/boot/grub
 
 _filesystem_post_baseinstall ()
 {
-cat > ${MOUNT_PATH}/etc/fstab <<FSTAB_EOF
+cat > ${MOUNT_PATH}/etc/fstab << FSTAB_EOF
 # /etc/fstab: static file system information
 #
 # <file system>             <dir>       <type>  <options>                   <dump>  <pass>
@@ -22,3 +22,4 @@ tmpfs                       /tmp        tmpfs   nodev,nosuid                0   
 /dev/disk/by-partlabel/${LABEL_ROOT}            /           ext4    rw,relatime,data=ordered,discard    0   1
 FSTAB_EOF
 }
+set +x

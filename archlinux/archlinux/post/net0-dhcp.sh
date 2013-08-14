@@ -2,11 +2,11 @@
 
 # Device names
 # https://wiki.archlinux.org/index.php/Network_Configuration#Device_names
-INUM=0
-for address in /sys/class/net/en*/address ; do
+INTUM=0
+for address in /sys/class/net/e*/address ; do
     MAC=(`cat $address`)
     echo SUBSYSTEM=='"'net'"', ACTION=='"'add'"', ATTR{address}=='"'${MAC}'"', NAME='"'net${INTNUM}'"' >> /etc/udev/rules.d/10-network.rules
-    INUM=$(( $INTNUM + 1 ))
+    INTUM=$(( $INTNUM + 1 ))
 done
 
 cat > /etc/netctl/net0-dhcp << EOF
@@ -23,6 +23,6 @@ EOF
 
 # Automatic switching of profiles
 # https://wiki.archlinux.org/index.php/Netctl#Automatic_switching_of_profiles
-netctl-ifplugd@net0.service
+systemctl enable netctl-ifplugd@net0.service
 
 

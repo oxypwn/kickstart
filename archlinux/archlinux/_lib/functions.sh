@@ -149,8 +149,8 @@ fi
 
 _mrbootstrap() {
 if [ ! -z $MR_BOOTSTRAP ]; then
-    _installaur mr
-    su $USERNAME -l -c "export AUTH_USERNAME=\"$_auth_username\"; export AUTH_PASSPHRASE=\"$_auth_passphrase\"; mr --trust-all bootstrap \"${MR_BOOTSTRAP}\""		
+    _installaur myrepos
+    su $USERNAME -l -c "export AUTH_USERNAME=\"$_auth_username\"; export AUTH_PASSPHRASE=\"$_auth_passphrase\"; mr --trust-all bootstrap \"${MR_BOOTSTRAP}\""
 fi
 }
 
@@ -202,7 +202,7 @@ for _block in $@; do
      		
 		while [ "$?" -gt 0 ]; do
         		_anykey "EXECUTION OF BLOCK \"$_block\" EXPERIENCED ERRORS"
-        		read _block;
+        		read -p "Enter block or shell " _block;
 			_preloadblock;
 			[ -n "$_loaded_block" ] && eval "${_loaded_block}";
     	 	done
