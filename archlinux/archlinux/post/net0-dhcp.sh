@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
+
 # Device names
 # https://wiki.archlinux.org/index.php/Network_Configuration#Device_names
-INTUM=0
-for address in /sys/class/net/e*/address ; do
+INTNUM=0
+for address in  /sys/class/net/e*/address ; do
     MAC=(`cat $address`)
     echo SUBSYSTEM=='"'net'"', ACTION=='"'add'"', ATTR{address}=='"'${MAC}'"', NAME='"'net${INTNUM}'"' >> /etc/udev/rules.d/10-network.rules
-    INTUM=$(( $INTNUM + 1 ))
+    INTNUM=$(( $INTNUM + 1 ))
 done
 
 cat > /etc/netctl/net0-dhcp << EOF
