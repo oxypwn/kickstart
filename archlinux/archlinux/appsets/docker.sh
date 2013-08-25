@@ -7,7 +7,7 @@ if [ -z $REMOTE ]; then
     . <(curl -fsL "${REMOTE}/archlinux/_lib/functions.sh")
 fi
 
-_installaur lxc-docker-git
+_installaur lxc-docker
 
 # You will need to greate a new config for grub if
 # you dont already have a aufs friendly kernel installed.
