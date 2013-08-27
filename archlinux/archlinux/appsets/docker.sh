@@ -34,3 +34,6 @@ sysctl net.ipv4.ip_forward=1
 # Make above setting permanent.
 curl -fsL ${REMOTE}/archlinux/conf/sysctl.conf -o /etc/sysctl.conf
 
+# Cleanup
+rm -vrf /root/TMPDIR
+unset TMPDIR
