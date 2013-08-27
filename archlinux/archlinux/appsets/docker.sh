@@ -7,6 +7,10 @@ if [ -z $REMOTE ]; then
     . <(curl -fsL "${REMOTE}/archlinux/_lib/functions.sh")
 fi
 
+# Install dependencies
+_installpkg xmlto docbook-xsl bc
+
+# Install docker from aur
 _installaur lxc-docker
 
 # You will need to greate a new config for grub if
