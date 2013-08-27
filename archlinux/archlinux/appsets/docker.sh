@@ -10,6 +10,11 @@ fi
 # Install dependencies
 _installpkg xmlto docbook-xsl bc
 
+# We need to set TMPDIR other than /tmp as building the kernel might fill up the disk.
+if [ ! -d ~/TMPDIR ]; then
+    mkdir ~/TMPDIR && export TMPDIR=/home/$USER/TMPDIR
+fi
+
 # Install docker from aur
 _installaur lxc-docker
 
