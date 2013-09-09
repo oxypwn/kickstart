@@ -36,7 +36,6 @@ fi
 # ARCH CONFIG (POST CHROOT)
 if $INCHROOT; then
 umount /tmp || _anykey "didn't unmount tmp..."
-_installpkg base-devel
 _filesystem_post_chroot
 _loadblock "${LOCALE}"
 _loadblock "${TIME}"
