@@ -1,4 +1,4 @@
-#	$OpenBSD: sshd_config,v 1.87 2012/07/10 02:19:15 djm Exp $
+#	$OpenBSD: sshd_config,v 1.89 2013/02/06 00:20:42 dtucker Exp $
 
 # This is the sshd server system-wide configuration file.  See
 # sshd_config(5) for more information.
@@ -10,9 +10,9 @@
 # possible, but leave them commented.  Uncommented options override the
 # default value.
 
-Port 22
+#Port 22
 #AddressFamily any
-ListenAddress 0.0.0.0
+#ListenAddress 0.0.0.0
 #ListenAddress ::
 
 # The default requires explicit activation of protocol 1
@@ -21,7 +21,7 @@ ListenAddress 0.0.0.0
 # HostKey for protocol version 1
 #HostKey /etc/ssh/ssh_host_key
 # HostKeys for protocol version 2
-HostKey /etc/ssh/ssh_host_rsa_key
+#HostKey /etc/ssh/ssh_host_rsa_key
 #HostKey /etc/ssh/ssh_host_dsa_key
 #HostKey /etc/ssh/ssh_host_ecdsa_key
 
@@ -50,6 +50,9 @@ HostKey /etc/ssh/ssh_host_rsa_key
 AuthorizedKeysFile	.ssh/authorized_keys
 
 #AuthorizedPrincipalsFile none
+
+#AuthorizedKeysCommand none
+#AuthorizedKeysCommandUser nobody
 
 # For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
 #RhostsRSAAuthentication no
@@ -95,7 +98,7 @@ UsePAM yes
 #X11Forwarding no
 #X11DisplayOffset 10
 #X11UseLocalhost yes
-#PrintMotd yes
+PrintMotd no # pam does that
 #PrintLastLog yes
 #TCPKeepAlive yes
 #UseLogin no
@@ -106,7 +109,7 @@ UsePrivilegeSeparation sandbox		# Default for new installations.
 #ClientAliveCountMax 3
 #UseDNS yes
 #PidFile /run/sshd.pid
-#MaxStartups 10
+#MaxStartups 10:30:100
 #PermitTunnel no
 #ChrootDirectory none
 #VersionAddendum none
